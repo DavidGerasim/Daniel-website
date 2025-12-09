@@ -1,0 +1,61 @@
+import express from "express";
+import User from "../models/User.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+const router = express.Router();
+
+router.post("/", async (req, res) => {
+  const { firstname, lastname, password } = req.body;
+  let { email } = req.body;
+  email = email.toLowerCase();
+  const name = `${firstname} ${lastname}`;
+
+  try {
+    // check if user exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser)
+      return res.status(400).json({ message: "User already exists" });
+
+    // Password validation
+    if (password.length < 8)
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 8 characters long" });
+
+    if (!/[A-Z]/.test(password))
+      return res.status(400).json({
+        message: "Password must contain at least one uppercase letter",
+      });
+
+    if (!/[0-9]/.test(password))
+      return res
+        .status(400)
+        .json({ message: "Password must contain at least one number" });
+
+    if (!/[!@#$%^&*]/.test(password))
+      return res.status(400).json({
+        message: "Password must contain at least one special character",
+      });
+
+    // encryption and storage
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ name, email, password: hashedPassword });
+    await user.save();
+
+    // create token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(201).json({
+      user: { _id: user._id, name: user.name, email: user.email },
+      token,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+export default router;

@@ -16,13 +16,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${SometypeMono.variable} antialiased`}>
+      <body
+        className={`${SometypeMono.variable} antialiased overflow-hidden relative`}
+      >
         <div className="flex">
           {/* main nav */}
           <div className="hidden 2xl:flex w-[285px] h-screen bg-secondary">
             <MainNav />
           </div>
-          <div className="w-full max-w-[1130px] px-[15px] mx-auto bg-pink-50/10">
+          <div className="w-full max-w-[1130px] px-[15px] mx-auto">
             <header>header</header>
             <div>{children}</div>
           </div>

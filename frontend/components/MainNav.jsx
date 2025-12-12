@@ -1,7 +1,12 @@
 import React from "react";
+import Navlinks from "./NavLinks";
 
 const MainNav = () => {
-  return <div>Main nav</div>;
+  return (
+    <nav>
+      <Navlinks containerStyles="flex flex-col gap-6" />
+    </nav>
+  );
 };
 
 export default MainNav;

@@ -1,8 +1,18 @@
 "use client";
-import React from "react";
+import { motion } from "framer-motion";
 
 const About = () => {
-  return <div>about</div>;
+  return (
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
+      }}
+    >
+      about
+    </motion.section>
+  );
 };
 
 export default About;

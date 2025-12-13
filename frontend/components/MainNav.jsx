@@ -1,10 +1,16 @@
 import React from "react";
 import Navlinks from "./NavLinks";
+import Logo from "./Logo";
 
 const MainNav = () => {
   return (
-    <nav>
-      <Navlinks containerStyles="flex flex-col gap-6" />
+    <nav className="w-full pt-16 h-screen">
+      <div className="relative h-full flex flex-col items-center">
+        <Logo />
+        <div className="absolute top-1/2 -translate-y-1/2">
+          <Navlinks containerStyles="flex flex-col gap-15" />
+        </div>
+      </div>
     </nav>
   );
 };

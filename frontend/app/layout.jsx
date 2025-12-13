@@ -2,6 +2,9 @@ import { Sometype_Mono } from "next/font/google";
 import "./globals.css";
 // components
 import MainNav from "@/components/MainNav";
+import Gradient from "@/components/Gradient";
+import Header from "@/components/Header";
+import PageTransition from "@/components/PageTransition";
 
 const SometypeMono = Sometype_Mono({
   variable: "--font-sometimesMono",
@@ -19,16 +22,19 @@ export default function RootLayout({ children }) {
       <body
         className={`${SometypeMono.variable} antialiased overflow-hidden relative`}
       >
-        <div className="flex">
-          {/* main nav */}
-          <div className="hidden 2xl:flex w-[285px] h-screen bg-secondary">
-            <MainNav />
+        <PageTransition>
+          <Gradient />
+          <div className="flex">
+            {/* main nav */}
+            <div className="hidden 2xl:flex w-[285px] h-screen bg-secondary">
+              <MainNav />
+            </div>
+            <div className="w-full max-w-[1130px] px-[15px] mx-auto">
+              <Header />
+              <div>{children}</div>
+            </div>
           </div>
-          <div className="w-full max-w-[1130px] px-[15px] mx-auto">
-            <header>header</header>
-            <div>{children}</div>
-          </div>
-        </div>
+        </PageTransition>
       </body>
     </html>
   );

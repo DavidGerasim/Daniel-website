@@ -8,7 +8,7 @@ const MainNav = () => {
       <div className="relative h-full flex flex-col items-center">
         <Logo />
         <div className="absolute top-1/2 -translate-y-1/2">
-          <Navlinks containerStyles="flex flex-col gap-15" />
+          <Navlinks containerStyles="flex flex-col gap-16" />
         </div>
       </div>
     </nav>

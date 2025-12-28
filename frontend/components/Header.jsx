@@ -15,7 +15,7 @@ import NavLinks from "./NavLinks";
 
 const Header = () => {
   return (
-    <header className="2xl:hidden absolute z-40 left-0 top-0 right-0">
+    <header className="2xl:hidden z-40">
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-6">
           {/* logo */}
@@ -38,7 +38,7 @@ const Header = () => {
                 </SheetDescription>
               </SheetHeader>
               <div className="flex-1 flex items-center">
-                <NavLinks containerStyles="flex flex-col gap-15 max-w-[100px]" />
+                <NavLinks containerStyles="flex flex-col gap-16 max-w-[100px]" />
               </div>
             </SheetContent>
           </Sheet>

@@ -24,17 +24,19 @@ const Home = () => {
         <div className="flex flex-col xl:flex-row items-center justify-between w-full">
           {/* text */}
           <div className="w-full xl:w-[550px] flex flex-col items-center xl:items-start text-center xl:text-left">
-            <h1 className="h1 flex-1 mb-[28px]">
-              Hello! I'm Daniel, <br />
-              <TypeAnimation
-                sequence={["Profecional", 2000, "Ostiopat", 2000]}
-                wrapper="span"
-                speed={40}
-                className="text-accent"
-                repeat={Infinity}
-                cursor={false}
-              />
+            <h1 className="h1 mb-[28px] flex flex-wrap items-center gap-x-2">
+              <span>Hello! I'm Daniel,</span>
+
+              <span className="relative inline-block min-w-[170px] text-accent">
+                <TypeAnimation
+                  sequence={["Professional", 2000, "Osteopath", 2000]}
+                  speed={40}
+                  wrapper="span"
+                  repeat={Infinity}
+                />
+              </span>
             </h1>
+
             <p className="max-w-[500px] mb-[44px]">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. harum
               maiores? voluptas veniam itaque dolorem repudiandae natus sapiente

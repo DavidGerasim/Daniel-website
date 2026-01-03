@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import Link from "next/link";
 
 // components
 import Blob from "@/components/Blob";
@@ -42,11 +43,13 @@ const Home = () => {
               maiores? voluptas veniam itaque dolorem repudiandae natus sapiente
               facilis maiores! Dolor?
             </p>
-            <button className="btn btn-lg btn-accent mb-16">
-              <div>
-                <span>Let`s talk</span>
-              </div>
-            </button>
+            <Link href="/login">
+              <button className="btn btn-lg btn-accent mb-16">
+                <div>
+                  <span>Let`s talk</span>
+                </div>
+              </button>
+            </Link>
             {/* socials */}
             <Socials
               containerStyles="flex 2xl:flex-col gap-6 xl:hidden 2xl:flex 2xl:absolute 2xl:top-1/2 2xl:right-2 2xl:transform 2xl:-translate-x-1/2 2xl:-translate-y-1/2"

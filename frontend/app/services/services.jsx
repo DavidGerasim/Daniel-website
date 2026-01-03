@@ -1,25 +1,31 @@
-// services.jsx
-
+// services.js
 export const services = [
   {
     icon: "/assets/services/massage.svg",
-    href: "",
-    title: "Procedure number 1",
+    id: "massage",
+    title: "Massage Therapy",
+    description:
+      "Deep therapeutic massage to release tension, improve circulation and reduce pain.",
   },
   {
     icon: "/assets/services/stretching.svg",
-    href: "",
-    title: "Procedure number 2",
+    id: "stretching",
+    title: "Stretching Therapy",
+    description:
+      "Guided stretching sessions to improve flexibility and prevent injuries.",
   },
   {
     icon: "/assets/services/activity.svg",
-    href: "",
-    title: "Procedure number 3",
+    id: "activity",
+    title: "Physical Activity",
+    description:
+      "Personalized physical activity programs to improve strength and mobility.",
   },
   {
     icon: "/assets/services/bone.svg",
-    href: "",
-    title:
-      "lorem ipsum dolor sit amet consectetur adipisicing elit. fugiat voluptate doloremque quia, quidem, voluptas, dolores, quos, aspernatur, labore, eaque, fugit, accusamus, consequuntur, velit, quis.",
+    id: "osteopathy",
+    title: "Osteopathic Treatment",
+    description:
+      "A holistic approach focusing on joints, muscles and nervous system balance.",
   },
 ];

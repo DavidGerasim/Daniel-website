@@ -39,17 +39,32 @@ const Services = () => {
           pagination={{ clickable: true, dynamicBullets: true }}
           className="h-[320px]"
         >
-          {services.map((item, index) => (
-            <SwiperSlide key={index}>
+          {services.map((service) => (
+            <SwiperSlide key={service.id}>
               <div className="bg-secondary/90 w-full h-[284px] rounded-[20px] px-[30px] py-[40px] flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-12">
-                  <Image src={item.icon} width={48} height={48} alt="" />
+                {/* Icon + arrow */}
+                <div className="flex items-center justify-between mb-6">
+                  <Image
+                    src={service.icon}
+                    width={48}
+                    height={48}
+                    alt={service.title}
+                  />
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl hover:rotate-45 transition-all">
                     <MdOutlineArrowOutward />
                   </div>
                 </div>
-                <ScrollArea className="max-h-[100px] overflow-y-auto">
-                  <h5 className="text-[22px] font-medium">{item.title}</h5>
+
+                {/* Title */}
+                <h5 className="text-[22px] font-medium mb-2">
+                  {service.title}
+                </h5>
+
+                {/* Description */}
+                <ScrollArea className="h-[90px] pr-2 group">
+                  <p className="text-sm text-white/70 leading-relaxed group-hover:overflow-y-auto">
+                    {service.description}
+                  </p>
                 </ScrollArea>
               </div>
             </SwiperSlide>

@@ -20,12 +20,8 @@ const About = () => {
     >
       <div className="container mx-auto px-0">
         <div className="flex flex-col xl:flex-row items-center gap-24 w-full h-[680px]">
-          {/* Image */}
-          <div className="hidden xl:flex w-full h-full pt-14 max-w-[430px] relative bg-pink-50/10">
-            1
-          </div>
-          {/* Scrool Area */}
-          <ScrollArea className="w-full h-[680px]">
+          {/* Left side */}
+          <div className="w-full h-[680px]">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-2 h-2 bg-accent rounded-full"></div>
@@ -41,6 +37,13 @@ const About = () => {
               <div className="flex flex-col items-start gap-16">
                 <Stats />
                 <Testimonial />
+              </div>
+            </div>
+          </div>
+          {/* Right side - Scrool Area */}
+          <ScrollArea className="w-full h-[680px]">
+            <div>
+              <div className="flex flex-col items-start gap-16">
                 <Journey />
               </div>
             </div>

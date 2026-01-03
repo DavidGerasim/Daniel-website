@@ -14,6 +14,11 @@ const journey = [
     role: "Software Engineer",
     institution: "Tech Inc",
   },
+  {
+    years: "2010 - 2015",
+    role: "Software Engineer",
+    institution: "Tech Inc",
+  },
 ];
 
 const Journey = () => {

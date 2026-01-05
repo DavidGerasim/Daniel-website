@@ -46,7 +46,7 @@ const Home = () => {
             <Link href="/login">
               <button className="btn btn-lg btn-accent mb-16">
                 <div>
-                  <span>Let`s talk</span>
+                  <span>Book Now</span>
                 </div>
               </button>
             </Link>

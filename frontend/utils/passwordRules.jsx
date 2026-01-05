@@ -1,11 +1,11 @@
-// utils/passwordRules.js
+// utils/passwordRules.jsx
 
 export const passwordRules = {
   minLength: 8,
   requireNumber: true,
   requireUppercase: true,
   requireLowercase: true,
-  requireSpecialChar: false, // לא חובה, רק אם רוצים
+  requireSpecialChar: true,
 };
 
 export function validatePassword(password) {

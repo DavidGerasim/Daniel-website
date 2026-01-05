@@ -1,19 +1,30 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
+import { useRouter } from "next/navigation";
+
+// utils
+import { validatePassword } from "@/utils/passwordRules";
+import { validateEmailInput } from "@/utils/emailValidation";
+import { validatePhoneInput } from "@/utils/phoneValidation";
+
+// components
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { HiOutlineArrowLongRight } from "react-icons/hi2";
-import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"; // תיקון
-import { validatePassword } from "@/utils/passwordRules";
+import PasswordToggleInput from "@/components/PasswordToggleInput";
 
 const SignUp = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [confirmError, setConfirmError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [serverError, setServerError] = useState("");
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -35,6 +46,49 @@ const SignUp = () => {
     setConfirmError(value === password ? "" : "Passwords do not match");
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setServerError("");
+
+    const firstname = e.target.firstname.value;
+    const lastname = e.target.lastname.value;
+
+    const phoneValidationMsg = validatePhoneInput(phone);
+    if (phoneValidationMsg) {
+      setPhoneError(phoneValidationMsg);
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstname,
+          lastname,
+          email,
+          password,
+          phone,
+        }),
+      });
+
+      const data = await response.json();
+
+      // ⬅️ כאן התיקון החשוב
+      if (!response.ok) {
+        setServerError(data.message || "Something went wrong");
+        return;
+      }
+
+      console.log("User created:", data);
+
+      router.push("/dashboard");
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setServerError("Server error. Please try again later.");
+    }
+  };
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -52,7 +106,7 @@ const SignUp = () => {
           Please fill in your details to sign up
         </p>
 
-        <form className="flex flex-col gap-6">
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           {/* First & Last Name */}
           <div className="flex flex-col xl:flex-row gap-4">
             <div className="flex-1">
@@ -90,9 +144,25 @@ const SignUp = () => {
               id="email"
               type="email"
               placeholder="youremail@gmail.com"
+              value={email}
+              onChange={(e) => {
+                const value = e.target.value;
+                setEmail(value);
+                setEmailError(validateEmailInput(value));
+              }}
+              onKeyDown={(e) => {
+                if (e.key === " ") {
+                  e.preventDefault();
+                  setEmailError("Email address cannot contain spaces");
+                }
+              }}
               required
               className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
             />
+
+            {emailError && (
+              <p className="text-red-400 text-sm mt-1">{emailError}</p>
+            )}
           </div>
 
           {/* Phone */}
@@ -103,10 +173,21 @@ const SignUp = () => {
             <Input
               id="phone"
               type="tel"
-              placeholder="050 123 4567"
+              inputMode="numeric"
+              placeholder="0501234567"
+              value={phone}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                setPhone(value);
+                setPhoneError(validatePhoneInput(value));
+              }}
               required
               className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
             />
+
+            {phoneError && (
+              <p className="text-red-400 text-sm mt-1">{phoneError}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -114,68 +195,30 @@ const SignUp = () => {
             <Label htmlFor="password" className="text-white">
               Password
             </Label>
-            <div className="relative">
-              <Input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="********"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent pr-10"
-              />
-              <button
-                type="button"
-                className="absolute top-1/2 right-3 -translate-y-1/2 text-white"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? (
-                  <HiOutlineEyeOff size={20} />
-                ) : (
-                  <HiOutlineEye size={20} />
-                )}
-              </button>
-            </div>
-            {passwordErrors.length > 0 && (
-              <ul className="text-red-400 text-sm mt-1 list-disc list-inside">
-                {passwordErrors.map((err, idx) => (
-                  <li key={idx}>{err}</li>
-                ))}
-              </ul>
-            )}
+            <PasswordToggleInput
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="********"
+              errorMessages={passwordErrors}
+            />
           </div>
 
           {/* Confirm Password */}
-          <div className="flex flex-col">
+          <div>
             <Label htmlFor="confirmPassword" className="text-white">
               Confirm Password
             </Label>
-            <div className="relative">
-              <Input
-                id="confirmPassword"
-                type={showConfirm ? "text" : "password"}
-                placeholder="********"
-                value={confirmPassword}
-                onChange={handleConfirmChange}
-                required
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent pr-10"
-              />
-              <button
-                type="button"
-                className="absolute top-1/2 right-2 -translate-y-1/2 text-white"
-                onClick={() => setShowConfirm(!showConfirm)}
-              >
-                {showConfirm ? (
-                  <HiOutlineEyeOff size={20} />
-                ) : (
-                  <HiOutlineEye size={20} />
-                )}
-              </button>
-            </div>
-            {confirmError && (
-              <p className="text-red-400 text-sm mt-1">{confirmError}</p>
-            )}
+            <PasswordToggleInput
+              value={confirmPassword}
+              onChange={handleConfirmChange}
+              placeholder="********"
+              errorMessages={confirmError ? [confirmError] : []}
+            />
           </div>
+
+          {serverError && (
+            <p className="text-red-400 text-sm text-center">{serverError}</p>
+          )}
 
           {/* Submit Button */}
           <button

@@ -1,10 +1,19 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
+import { validateEmailInput } from "@/utils/emailValidation";
+
+// components
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { HiOutlineArrowLongRight } from "react-icons/hi2";
+import PasswordToggleInput from "@/components/PasswordToggleInput";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -27,37 +36,52 @@ const Login = () => {
     transition-transform duration-300 ease-in-out
   "
       >
-        <h2 className="text-3xl font-bold text-white text-center">
-          Welcome Back
-        </h2>
+        <h2 className="text-3xl font-bold text-white text-center">Welcome</h2>
         <p className="text-white/70 text-center mb-4">
           Please login to your account
         </p>
 
         <form className="flex flex-col gap-6">
+          {/* Email */}
           <div>
             <Label htmlFor="email" className="text-white">
               Email
             </Label>
             <Input
               id="email"
-              type="email"
+              type="text"
               placeholder="youremail@gmail.com"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
+              value={email}
+              onChange={(e) => {
+                const value = e.target.value;
+                setEmail(value);
+                setEmailError(validateEmailInput(value));
+              }}
+              onKeyDown={(e) => {
+                if (e.key === " ") {
+                  e.preventDefault();
+                  setEmailError("Email address cannot contain spaces");
+                }
+              }}
               required
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
             />
+
+            {emailError && (
+              <p className="text-red-400 text-sm mt-1">{emailError}</p>
+            )}
           </div>
 
+          {/* Password */}
           <div>
             <Label htmlFor="password" className="text-white">
               Password
             </Label>
-            <Input
-              id="password"
-              type="password"
+            <PasswordToggleInput
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="********"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
-              required
+              errorMessages={[]}
             />
           </div>
 

@@ -38,7 +38,6 @@ const NavLinks = ({ containerStyles }) => {
         const charLength = link.name.length;
         // set the line with based on character length
         const lineWidth = charLength > 5 ? "after:w-[120%]" : "after:w-[90%]";
-        console.log(charLength);
         return (
           <Link
             href={link.path}

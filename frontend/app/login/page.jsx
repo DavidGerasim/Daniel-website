@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { validateEmailInput } from "@/utils/emailValidation";
+import { useRouter } from "next/navigation";
 
 // components
 import { Label } from "@/components/ui/label";
@@ -13,6 +14,41 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+  const [serverError, setServerError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setServerError("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setServerError(data.message || "Login failed");
+        return;
+      }
+
+      // שמירת token
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      // מעבר לדשבורד
+      router.push("/dashboard");
+    } catch (err) {
+      setServerError("Server is not responding");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <motion.section
@@ -41,7 +77,7 @@ const Login = () => {
           Please login to your account
         </p>
 
-        <form className="flex flex-col gap-6">
+        <form onSubmit={handleLogin} className="flex flex-col gap-6">
           {/* Email */}
           <div>
             <Label htmlFor="email" className="text-white">
@@ -85,8 +121,16 @@ const Login = () => {
             />
           </div>
 
-          <button className="btn btn-accent w-full flex items-center justify-center gap-2">
-            <span>Login</span>
+          {serverError && (
+            <p className="text-red-400 text-sm text-center">{serverError}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-accent w-full flex items-center justify-center gap-2"
+          >
+            <span>{loading ? "Logging in..." : "Login"}</span>
             <HiOutlineArrowLongRight />
           </button>
         </form>

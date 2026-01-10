@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { services } from "../services/services";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+// components
+import BookingCalendar from "@/components/BookingCalendar";
+
 export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -14,22 +20,38 @@ export default function Dashboard() {
 
   useEffect(() => {
     document.title = "Dashboard";
+
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) return router.push("/login");
+        if (!token) {
+          router.replace("/login");
+          return;
+        }
 
         const res = await fetch("http://localhost:5000/api/history", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "Failed to fetch data");
 
-        setUser(data.user);
-        setTreatmentHistory(data.user.treatmentHistory || []);
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to fetch history");
+        }
+
+        // 🔥 data הוא מערך, לא user
+        setTreatmentHistory(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error(err);
         setError(err.message);
+
+        if (err.message === "Invalid token" || err.message === "Unauthorized") {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          router.replace("/login");
+        }
       }
     };
 
@@ -97,27 +119,54 @@ export default function Dashboard() {
       <div className="flex-1 bg-gray-900/80 rounded-2xl p-6 flex flex-col gap-4">
         <h2 className="text-2xl font-bold mb-4">Book a Treatment</h2>
         <form className="flex flex-col gap-4" onSubmit={handleBooking}>
-          <select
-            value={service}
-            onChange={(e) => setService(e.target.value)}
-            className="p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:border-accent"
-          >
-            <option value="" disabled hidden>
-              Select a Service
-            </option>
-            {services.map((s) => (
-              <option key={s.id} value={s.title}>
-                {s.title}
-              </option>
-            ))}
-          </select>
+          <div className="grid grid-cols-2 gap-4">
+            {services.map((s) => {
+              const isSelected = service === s.title;
 
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:border-accent"
-          />
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setService(s.title)}
+                  className={`
+    relative z-10
+    w-full
+    h-18
+    p-3
+    rounded-xl
+    border
+    transition
+    flex flex-col items-center justify-center text-center gap-2
+    ${
+      isSelected
+        ? "bg-accent text-black border-accent"
+        : "bg-gray-800 border-gray-600 hover:border-accent/60"
+    }
+  `}
+                >
+                  <img
+                    src={s.icon}
+                    alt={s.title}
+                    className="w-8 h-8 pointer-events-none"
+                  />
+                  <span className="font-semibold text-sm leading-tight">
+                    {s.title}
+                  </span>{" "}
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            className={`${!service ? "opacity-50 pointer-events-none" : ""}`}
+          >
+            <BookingCalendar
+              date={date}
+              setDate={setDate}
+              disabled={!service}
+            />
+          </div>
+
           <button type="submit" className="btn btn-accent w-full mt-2">
             Book
           </button>

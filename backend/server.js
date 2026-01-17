@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import signup from "./api/signup.js";
 import login from "./api/login.js";
 import bookings from "./api/booking.js";
-import history from "./api/history.js";
 
 dotenv.config();
 
@@ -20,7 +19,6 @@ app.use(express.json());
 app.use("/api/signup", signup);
 app.use("/api/login", login);
 app.use("/api/bookings", bookings);
-app.use("/api/history", history);
 
 // Connect to MongoDB
 mongoose

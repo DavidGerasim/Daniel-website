@@ -74,13 +74,13 @@ const SignUp = () => {
 
       const data = await response.json();
 
-      // ⬅️ כאן התיקון החשוב
       if (!response.ok) {
         setServerError(data.message || "Something went wrong");
         return;
       }
 
-      console.log("User created:", data);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
 
       router.push("/dashboard");
     } catch (err) {

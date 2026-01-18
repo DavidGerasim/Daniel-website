@@ -1,3 +1,4 @@
+// app/dashboard/page.jsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ import {
   fetchBookedTimes,
   createBooking,
   deleteBookingById,
+  fetchFullyBookedDates,
 } from "@/services/bookings.api";
 
 export default function Dashboard() {
@@ -32,6 +34,7 @@ export default function Dashboard() {
   const [bookedTimes, setBookedTimes] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
   const [bookingToDelete, setBookingToDelete] = useState(null);
+  const [fullyBookedDates, setFullyBookedDates] = useState([]);
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -67,7 +70,12 @@ export default function Dashboard() {
 
     loadBookedTimes();
   }, [date]);
+  //---------------------------------------------------------------
 
+  useEffect(() => {
+    fetchFullyBookedDates().then(setFullyBookedDates);
+  }, []);
+  //---------------------------------------------------------------
   const handleBooking = async (e) => {
     e.preventDefault();
     setError("");
@@ -85,6 +93,9 @@ export default function Dashboard() {
       });
 
       setTreatmentHistory((prev) => [booking, ...prev]);
+
+      const updatedFullyBookedDates = await fetchFullyBookedDates();
+      setFullyBookedDates(updatedFullyBookedDates);
 
       setService("");
       setDate(null);
@@ -201,6 +212,7 @@ export default function Dashboard() {
                   setTime("");
                 }}
                 disabled={!service}
+                fullyBookedDates={fullyBookedDates}
               />
             </div>
 

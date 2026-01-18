@@ -19,6 +19,32 @@ export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
     return treatmentDate.getTime() > now.getTime();
   };
 
+  // פונקציה שעושה Date מלא מתור
+  const getDateTime = (t) => {
+    const [h, m] = t.time.split(":").map(Number);
+    const d = new Date(t.date);
+    d.setHours(h, m, 0, 0);
+    return d;
+  };
+
+  // כל התורים העתידיים
+  const futureBookings = treatmentHistory
+    .filter((t) => getDateTime(t) > now)
+    .sort((a, b) => getDateTime(a) - getDateTime(b));
+
+  // כל התורים שעברו
+  const pastBookings = treatmentHistory.filter((t) => getDateTime(t) <= now);
+
+  // התור האחרון שעבר (רק אחד!)
+  const lastPastBooking = pastBookings.sort(
+    (a, b) => getDateTime(b) - getDateTime(a)
+  )[0];
+
+  // הרשימה הסופית להצגה
+  const bookingsToShow = lastPastBooking
+    ? [lastPastBooking, ...futureBookings]
+    : futureBookings;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -36,50 +62,38 @@ export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
         pagination={{ clickable: true, dynamicBullets: true }}
         className="pb-6"
       >
-        {treatmentHistory
-          .sort((a, b) => {
-            const [hA, mA] = a.time.split(":").map(Number);
-            const [hB, mB] = b.time.split(":").map(Number);
-            const dateA = new Date(a.date);
-            dateA.setHours(hA, mA, 0, 0);
-            const dateB = new Date(b.date);
-            dateB.setHours(hB, mB, 0, 0);
-            return dateA - dateB;
-          })
-          .map((treatment, idx) => (
-            <SwiperSlide key={idx}>
-              <div
-                className={`relative w-full rounded-2xl p-4 flex flex-col gap-2
-                  bg-gray-900/80
-                  border ${
-                    isFuture(treatment) ? "border-accent" : "border-gray-700"
-                  }`}
-              >
-                {isFuture(treatment) && (
-                  <button
-                    onClick={() => onDelete(treatment)}
-                    className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition"
-                    title="Cancel booking"
-                  >
-                    🗑️
-                  </button>
-                )}
+        {bookingsToShow.map((treatment, idx) => (
+          <SwiperSlide key={idx}>
+            <div
+              className={`relative w-full rounded-2xl p-4 flex flex-col gap-2
+        bg-gray-900/80
+        border ${isFuture(treatment) ? "border-accent" : "border-gray-700"}`}
+            >
+              {isFuture(treatment) && (
+                <button
+                  onClick={() => onDelete(treatment)}
+                  className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition"
+                  title="Cancel booking"
+                >
+                  🗑️
+                </button>
+              )}
 
-                <h5 className="text-base font-semibold leading-tight">
-                  {treatment.service}
-                </h5>
+              <h5 className="text-base font-semibold leading-tight">
+                {treatment.service}
+              </h5>
 
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-sm text-gray-400 flex items-center gap-1">
-                    📅 {new Date(treatment.date).toLocaleDateString("he-IL")}
-                  </span>
-                  <span className="text-sm text-gray-400 flex items-center gap-1">
-                    🕒 {treatment.time}
-                  </span>
-                </div>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-sm text-gray-400 flex items-center gap-1">
+                  📅 {new Date(treatment.date).toLocaleDateString("he-IL")}
+                </span>
+                <span className="text-sm text-gray-400 flex items-center gap-1">
+                  🕒 {treatment.time}
+                </span>
               </div>
-            </SwiperSlide>
-          ))}
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </motion.div>
   );

@@ -75,3 +75,14 @@ export async function deleteBookingById(bookingId) {
 
   return true;
 }
+
+export async function fetchFullyBookedDates(service) {
+  const res = await fetch(
+    `${BASE_URL}/fully-booked-dates${service ? `?service=${service}` : ""}`
+  );
+  const data = await res.json();
+
+  if (!res.ok) throw new Error("Failed to fetch fully booked dates");
+
+  return data;
+}

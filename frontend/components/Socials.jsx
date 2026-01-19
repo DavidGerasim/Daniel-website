@@ -1,3 +1,4 @@
+// components/Socials.jsx
 import { BiLogoFacebook, BiLogoInstagram } from "react-icons/bi";
 
 const socials = [

@@ -1,7 +1,7 @@
+// app/about/page.jsx
 "use client";
 import { motion } from "framer-motion";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import Image from "next/image";
 
 // components
 import Stats from "@/components/Stats";

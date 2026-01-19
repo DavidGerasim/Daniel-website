@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { validateEmailInput } from "@/utils/emailValidation";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 // components
 import { Label } from "@/components/ui/label";
@@ -15,6 +16,8 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedService = searchParams.get("service");
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +45,13 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(data.user));
 
       // מעבר לדשבורד
-      router.push("/dashboard");
+      if (selectedService) {
+        router.push(
+          `/dashboard?service=${encodeURIComponent(selectedService)}`
+        );
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       setServerError("Server is not responding");
     } finally {
@@ -138,7 +147,11 @@ const Login = () => {
         <p className="text-white/60 text-center">
           Don't have an account?{" "}
           <a
-            href="/signup"
+            href={
+              selectedService
+                ? `/signup?service=${encodeURIComponent(selectedService)}`
+                : "/signup"
+            }
             className="text-accent font-semibold text-lg hover:brightness-125 transition"
           >
             Sign up

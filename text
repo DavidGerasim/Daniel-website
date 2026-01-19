@@ -1,0 +1,49 @@
+## Error Type
+Console Error
+
+## Error Message
+Invalid token
+
+
+    at fetchMyBookings (services/bookings.api.js:23:11)
+    at async Dashboard.useEffect.fetchUserData (app/dashboard/page.jsx:43:22)
+
+## Code Frame
+  21 |
+  22 |   if (!res.ok) {
+> 23 |     throw new Error(data.message || "Failed to fetch history");
+     |           ^
+  24 |   }
+  25 |
+  26 |   return Array.isArray(data) ? data : [];
+
+Next.js version: 16.0.8 (Turbopack)
+
+
+
+
+
+
+
+
+
+## Error Type
+Console Error
+
+## Error Message
+Unauthorized
+
+
+    at fetchMyBookings (services/bookings.api.js:25:13)
+    at async Dashboard.useEffect.fetchUserData (app/dashboard/page.jsx:41:22)
+
+## Code Frame
+  23 |       // unauthorized
+  24 |       clearAuth();
+> 25 |       throw new Error("Unauthorized");
+     |             ^
+  26 |     }
+  27 |     throw new Error(data.message || "Failed to fetch history");
+  28 |   }
+
+Next.js version: 16.0.8 (Turbopack)

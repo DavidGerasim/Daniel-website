@@ -24,6 +24,8 @@ import {
   fetchFullyBookedDates,
 } from "@/services/bookings.api";
 
+import { useSearchParams } from "next/navigation";
+
 export default function Dashboard() {
   const router = useRouter();
   const [treatmentHistory, setTreatmentHistory] = useState([]);
@@ -35,6 +37,14 @@ export default function Dashboard() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [bookingToDelete, setBookingToDelete] = useState(null);
   const [fullyBookedDates, setFullyBookedDates] = useState([]);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const serviceFromUrl = searchParams.get("service");
+    if (serviceFromUrl) {
+      setService(serviceFromUrl);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     document.title = "Dashboard";

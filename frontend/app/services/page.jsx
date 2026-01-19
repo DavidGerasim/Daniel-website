@@ -1,7 +1,9 @@
+// app/services/page.jsx
 "use client";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { useRouter } from "next/navigation";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -12,6 +14,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { services } from "./services";
 
 const Services = () => {
+  const router = useRouter();
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -50,7 +54,14 @@ const Services = () => {
                     height={48}
                     alt={service.title}
                   />
-                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl hover:rotate-45 transition-all">
+                  <div
+                    onClick={() => {
+                      router.push(
+                        `/login?service=${encodeURIComponent(service.title)}`
+                      );
+                    }}
+                    className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl hover:rotate-45 transition-all cursor-pointer"
+                  >
                     <MdOutlineArrowOutward />
                   </div>
                 </div>

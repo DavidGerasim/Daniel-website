@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 // utils
 import { validatePassword } from "@/utils/passwordRules";
@@ -25,6 +26,8 @@ const SignUp = () => {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [serverError, setServerError] = useState("");
+  const searchParams = useSearchParams();
+  const selectedService = searchParams.get("service");
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -82,7 +85,13 @@ const SignUp = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      router.push("/dashboard");
+      if (selectedService) {
+        router.push(
+          `/dashboard?service=${encodeURIComponent(selectedService)}`
+        );
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       console.error("Unexpected error:", err);
       setServerError("Server error. Please try again later.");

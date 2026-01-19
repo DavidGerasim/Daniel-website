@@ -1,3 +1,4 @@
+// server.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -6,6 +7,7 @@ import dotenv from "dotenv";
 import signup from "./api/signup.js";
 import login from "./api/login.js";
 import bookings from "./api/booking.js";
+import statsRoutes from "./api/stats.js";
 
 dotenv.config();
 
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use("/api/signup", signup);
 app.use("/api/login", login);
 app.use("/api/bookings", bookings);
+app.use("/api/stats", statsRoutes);
 
 // Connect to MongoDB
 mongoose

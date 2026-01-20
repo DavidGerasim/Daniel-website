@@ -2,9 +2,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
-import { validateEmailInput } from "@/utils/emailValidation";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+
+// utils
+import { validateEmailInput } from "@/utils/emailValidation";
+import { loginUser } from "@/utils/authApi";
 
 // components
 import { Label } from "@/components/ui/label";
@@ -19,41 +22,33 @@ const Login = () => {
   const searchParams = useSearchParams();
   const selectedService = searchParams.get("service");
   const [serverError, setServerError] = useState("");
+  const [wrongPassword, setWrongPassword] = useState(false); // <-- דגל חדש
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setServerError("");
+    setWrongPassword(false); // נקה דגל קודם
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const data = await loginUser({ email, password });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setServerError(data.message || "Login failed");
-        return;
-      }
-
-      // שמירת token
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      // מעבר לדשבורד
-      if (selectedService) {
-        router.push(
-          `/dashboard?service=${encodeURIComponent(selectedService)}`
-        );
-      } else {
-        router.push("/dashboard");
-      }
+      router.push(
+        selectedService
+          ? `/dashboard?service=${encodeURIComponent(selectedService)}`
+          : "/dashboard"
+      );
     } catch (err) {
-      setServerError("Server is not responding");
+      // אם הסיסמה שגויה, נציג הודעה
+      if (err.message.toLowerCase().includes("password")) {
+        setWrongPassword(true);
+      } else {
+        setServerError(err.message || "Server is not responding");
+      }
     } finally {
       setLoading(false);
     }
@@ -68,19 +63,7 @@ const Login = () => {
       }}
       className="h-screen flex items-center justify-center bg-primary"
     >
-      <div
-        className="
-    w-full max-w-md
-    bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/70
-    backdrop-blur-xl
-    rounded-2xl
-    p-10
-    flex flex-col gap-8
-    shadow-2xl shadow-black/50
-    border border-white/10
-    transition-transform duration-300 ease-in-out
-  "
-      >
+      <div className="w-full max-w-md bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/70 backdrop-blur-xl rounded-2xl p-10 flex flex-col gap-8 shadow-2xl shadow-black/50 border border-white/10">
         <h2 className="text-3xl font-bold text-white text-center">Welcome</h2>
         <p className="text-white/70 text-center mb-4">
           Please login to your account
@@ -111,7 +94,6 @@ const Login = () => {
               required
               className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
             />
-
             {emailError && (
               <p className="text-red-400 text-sm mt-1">{emailError}</p>
             )}
@@ -130,10 +112,12 @@ const Login = () => {
             />
           </div>
 
+          {/* Server Error */}
           {serverError && (
             <p className="text-red-400 text-sm text-center">{serverError}</p>
           )}
 
+          {/* Login Button */}
           <button
             type="submit"
             disabled={loading}
@@ -142,6 +126,19 @@ const Login = () => {
             <span>{loading ? "Logging in..." : "Login"}</span>
             <HiOutlineArrowLongRight />
           </button>
+
+          {/* Forgot Password */}
+          {wrongPassword && (
+            <p className="text-red-400 text-sm text-center mt-2">
+              Forgot your password?{" "}
+              <a
+                href="/forgot-password"
+                className="underline text-red-300 hover:text-red-400 transition"
+              >
+                Reset it here
+              </a>
+            </p>
+          )}
         </form>
 
         <p className="text-white/60 text-center">

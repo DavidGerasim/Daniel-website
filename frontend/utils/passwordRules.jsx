@@ -1,5 +1,4 @@
 // utils/passwordRules.jsx
-
 export const passwordRules = {
   minLength: 8,
   requireNumber: true,

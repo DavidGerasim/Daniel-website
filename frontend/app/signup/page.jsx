@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import { signupUser } from "@/utils/authApi";
 
 // utils
 import { validatePassword } from "@/utils/passwordRules";
@@ -63,38 +64,23 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstname,
-          lastname,
-          email,
-          password,
-          phone,
-        }),
+      const data = await signupUser({
+        firstname,
+        lastname,
+        email,
+        password,
+        phone,
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setServerError(data.message || "Something went wrong");
-        return;
-      }
-
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      if (selectedService) {
-        router.push(
-          `/dashboard?service=${encodeURIComponent(selectedService)}`
-        );
-      } else {
-        router.push("/dashboard");
-      }
+      router.push(
+        selectedService
+          ? `/dashboard?service=${encodeURIComponent(selectedService)}`
+          : "/dashboard"
+      );
     } catch (err) {
-      console.error("Unexpected error:", err);
-      setServerError("Server error. Please try again later.");
+      setServerError(err.message || "Server error. Please try again later.");
     }
   };
 

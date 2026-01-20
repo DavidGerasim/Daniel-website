@@ -1,3 +1,4 @@
+// components/PasswordToggleInput.jsx
 "use client";
 import { Input } from "@/components/ui/input";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";

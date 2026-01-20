@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   phone: String,
+
+  // 🔐 Password reset
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

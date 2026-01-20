@@ -8,6 +8,8 @@ import signup from "./api/signup.js";
 import login from "./api/login.js";
 import bookings from "./api/booking.js";
 import statsRoutes from "./api/stats.js";
+import forgotPassword from "./api/forgotPassword.js";
+import resetPassword from "./api/resetPassword.js";
 
 dotenv.config();
 
@@ -22,6 +24,8 @@ app.use("/api/signup", signup);
 app.use("/api/login", login);
 app.use("/api/bookings", bookings);
 app.use("/api/stats", statsRoutes);
+app.use("/api/forgot-password", forgotPassword);
+app.use("/api/reset-password", resetPassword);
 
 // Connect to MongoDB
 mongoose

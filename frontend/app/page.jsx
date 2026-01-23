@@ -1,3 +1,4 @@
+// frontend/app/page.jsx
 "use client";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";

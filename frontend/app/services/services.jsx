@@ -1,4 +1,4 @@
-// services.js
+// /frontend/app/services/services.jsx
 export const services = [
   {
     icon: "/assets/services/massage.svg",

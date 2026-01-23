@@ -1,3 +1,4 @@
+// frontend/app/layout.jsx
 import { Sometype_Mono } from "next/font/google";
 import "./globals.css";
 // components

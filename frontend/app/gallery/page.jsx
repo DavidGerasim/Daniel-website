@@ -1,3 +1,4 @@
+// frontend/app/gallery/page.jsx
 "use client";
 import { motion } from "framer-motion";
 

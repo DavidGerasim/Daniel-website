@@ -1,4 +1,4 @@
-// app/services/page.jsx
+// frontend/app/services/page.jsx
 "use client";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";

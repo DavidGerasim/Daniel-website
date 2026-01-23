@@ -1,3 +1,4 @@
+// frontend/app/contact/page.jsx
 "use client";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
+import { useI18n } from "./i18nProvider";
+import { dictionaries } from "./i18n";
 
 // components
 import Blob from "@/components/Blob";
@@ -12,6 +14,9 @@ import Socials from "@/components/Socials";
 import Pattern from "@/components/Pattern";
 
 const Home = () => {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -27,11 +32,12 @@ const Home = () => {
           {/* text */}
           <div className="w-full xl:w-[550px] flex flex-col items-center xl:items-start text-center xl:text-left">
             <h1 className="h1 mb-[28px] flex flex-wrap items-center gap-x-2">
-              <span>Hello! I'm Daniel,</span>
+              <span>{t.home.greeting}</span>
 
               <span className="relative inline-block min-w-[170px] text-accent">
                 <TypeAnimation
-                  sequence={["Professional", 2000, "Osteopath", 2000]}
+                  key={lang}
+                  sequence={[t.home.roles[0], 2000, t.home.roles[1], 2000]}
                   speed={40}
                   wrapper="span"
                   repeat={Infinity}
@@ -39,15 +45,11 @@ const Home = () => {
               </span>
             </h1>
 
-            <p className="max-w-[500px] mb-[44px]">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. harum
-              maiores? voluptas veniam itaque dolorem repudiandae natus sapiente
-              facilis maiores! Dolor?
-            </p>
+            <p>{t.home.description}</p>
             <Link href="/login">
               <button className="btn btn-lg btn-accent mb-16">
                 <div>
-                  <span>Book Now</span>
+                  <span>{t.home.bookNow}</span>
                 </div>
               </button>
             </Link>

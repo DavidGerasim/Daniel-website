@@ -1,35 +1,25 @@
-// components/NavLinks.jsx
+// frontend/components/NavLinks.jsx
 "use client";
 
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const links = [
-  {
-    name: "Home",
-    path: "/",
-  },
-  {
-    name: "about",
-    path: "/about",
-  },
-  {
-    name: "services",
-    path: "/services",
-  },
-  {
-    name: "gallery",
-    path: "/gallery",
-  },
-  {
-    name: "contact",
-    path: "/contact",
-  },
-];
+import { useI18n } from "@/app/i18nProvider";
+import { dictionaries } from "@/app/i18n";
 
 const NavLinks = ({ containerStyles }) => {
   const pathname = usePathname();
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+
+  const links = [
+    { name: t.nav.home, path: "/" },
+    { name: t.nav.about, path: "/about" },
+    { name: t.nav.services, path: "/services" },
+    { name: t.nav.gallery, path: "/gallery" },
+    { name: t.nav.contact, path: "/contact" },
+  ];
+
   return (
     <ul className={containerStyles}>
       {links.map((link, index) => {

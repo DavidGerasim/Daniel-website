@@ -1,16 +1,12 @@
-// frontend/app/layout.jsx
-import { Sometype_Mono } from "next/font/google";
 import "./globals.css";
+import { I18nProvider } from "./i18nProvider";
+import FontWrapper from "./FontWrapper";
+
 // components
 import MainNav from "@/components/MainNav";
 import Gradient from "@/components/Gradient";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
-
-const SometypeMono = Sometype_Mono({
-  variable: "--font-sometimesMono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Create Next App",
@@ -20,22 +16,26 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${SometypeMono.variable} antialiased overflow-hidden relative`}
-      >
-        <PageTransition>
-          <Gradient />
-          <div className="flex">
-            {/* main nav */}
-            <div className="hidden 2xl:flex w-[285px] h-screen bg-secondary">
-              <MainNav />
-            </div>
-            <div className="w-full max-w-[1130px] px-[15px] mx-auto">
-              <Header />
-              <div>{children}</div>
-            </div>
-          </div>
-        </PageTransition>
+      <body className="antialiased overflow-hidden relative">
+        <div suppressHydrationWarning>
+          <I18nProvider>
+            <FontWrapper>
+              <PageTransition>
+                <Gradient />
+                <div className="flex">
+                  {/* main nav */}
+                  <div className="hidden 2xl:flex w-[285px] h-screen bg-secondary">
+                    <MainNav />
+                  </div>
+                  <div className="w-full max-w-[1130px] px-[15px] mx-auto">
+                    <Header />
+                    <div>{children}</div>
+                  </div>
+                </div>
+              </PageTransition>
+            </FontWrapper>
+          </I18nProvider>
+        </div>
       </body>
     </html>
   );

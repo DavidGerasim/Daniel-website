@@ -1,3 +1,4 @@
+// frontend/components/Journey.jsx
 const journey = [
   {
     years: "2025 - Present",

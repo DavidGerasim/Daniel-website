@@ -1,3 +1,4 @@
+// frontend/components/Pattern.jsx
 import React from "react";
 
 const Pattern = () => {

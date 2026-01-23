@@ -1,3 +1,4 @@
+// components/MainNav.jsx
 import React from "react";
 import Navlinks from "./NavLinks";
 import Logo from "./Logo";

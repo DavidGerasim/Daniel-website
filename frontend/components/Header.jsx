@@ -1,4 +1,4 @@
-// components
+// frontend/components/Header.jsx
 import Logo from "./Logo";
 import { CiMenuFries } from "react-icons/ci";
 

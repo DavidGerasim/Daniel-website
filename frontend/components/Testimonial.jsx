@@ -1,3 +1,4 @@
+// fronend/components/Testimonial.jsx
 "use client";
 
 // import swiper react components

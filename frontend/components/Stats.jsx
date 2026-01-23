@@ -1,3 +1,4 @@
+// frontend/components/Stats.jsx
 "use client";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";

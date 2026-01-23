@@ -1,3 +1,4 @@
+// frontend/components/Gradient.jsx
 import React from "react";
 
 const Gradient = () => {

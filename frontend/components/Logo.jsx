@@ -1,3 +1,4 @@
+// frontend/components/Logo.jsx
 import Link from "next/link";
 
 const Logo = () => {

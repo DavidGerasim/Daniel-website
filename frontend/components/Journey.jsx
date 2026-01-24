@@ -1,32 +1,9 @@
 // frontend/components/Journey.jsx
-const journey = [
-  {
-    years: "2025 - Present",
-    role: "Software Engineer",
-    institution: "Tech Inc",
-  },
-  {
-    years: "2020 - 2025",
-    role: "Software Engineer",
-    institution: "Tech Inc",
-  },
-  {
-    years: "2015 - 2020",
-    role: "Software Engineer",
-    institution: "Tech Inc",
-  },
-  {
-    years: "2010 - 2015",
-    role: "Software Engineer",
-    institution: "Tech Inc",
-  },
-];
-
-const Journey = () => {
+const Journey = ({ journey, title }) => {
   return (
     <div className="flex flex-col">
       <h2 className="h2 mb-8">
-        Education & <span className="text-accent">Experience</span>
+        {title.normal} <span className="text-accent">{title.accent}</span>
       </h2>
       {journey.map((item, index) => {
         const { institution, role, years } = item;

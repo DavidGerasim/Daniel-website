@@ -11,11 +11,18 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { services } from "@/app/services/services";
+// import { services } from "@/app/services/services";
+import { useI18n } from "../i18nProvider";
+import { dictionaries } from "../i18n";
 
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 
 const Contact = () => {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+  const services = t.services.list;
+  const isRTL = lang === "he";
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -32,11 +39,10 @@ const Contact = () => {
             <div className="flex-1 xl:w-[600px] flex flex-col gap-12">
               <div>
                 <h2 className="h2 mb-6">
-                  Get In <span className="text-accent">Touch</span>
+                  {t.contact.title.normal}{" "}
+                  <span className="text-accent">{t.contact.title.accent}</span>
                 </h2>
-                <p className="max-w-[460px]">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </p>
+                <p className="max-w-[460px]">{t.contact.description}</p>
               </div>
             </div>
             {/* form */}
@@ -45,33 +51,38 @@ const Contact = () => {
                 {/* first and last name */}
                 <div className="flex flex-col xl:flex-row gap-6 w-full">
                   <div className="w-full">
-                    <Label htmlFor="name">
-                      Firstname <span className="text-accent">*</span>
+                    <Label htmlFor="firstname">
+                      {t.contact.fields.firstname}{" "}
+                      <span className="text-accent">*</span>
                     </Label>
                     <Input
                       id="firstname"
                       name="firstname"
-                      placeholder="First name"
+                      placeholder={t.contact.fields.firstname}
                       required
                     />
                   </div>
                   <div className="w-full">
-                    <Label htmlFor="name">
-                      Lastname <span className="text-accent">*</span>
+                    <Label htmlFor="lastname">
+                      {t.contact.fields.lastname}{" "}
+                      <span className="text-accent">*</span>
                     </Label>
+
                     <Input
                       id="lastname"
                       name="lastname"
-                      placeholder="Last name"
+                      placeholder={t.contact.fields.lastname}
                       required
                     />
                   </div>
                 </div>
                 {/* email */}
                 <div className="w-full">
-                  <Label htmlFor="name">
-                    Email <span className="text-accent">*</span>
+                  <Label htmlFor="email">
+                    {t.contact.fields.email}{" "}
+                    <span className="text-accent">*</span>
                   </Label>
+
                   <Input
                     id="email"
                     name="email"
@@ -81,15 +92,21 @@ const Contact = () => {
                 </div>
                 {/* select */}
                 <div className="w-full">
-                  <Label htmlFor="name">
-                    I'm interested in <span className="text-accent">*</span>
+                  <Label htmlFor="service">
+                    {t.contact.fields.service}{" "}
+                    <span className="text-accent">*</span>
                   </Label>
-                  <Select name="service" required>
+
+                  <Select name="service" required dir={isRTL ? "rtl" : "ltr"}>
                     <SelectTrigger
                       id="service"
-                      className="w-full h-12 bg-white/10 border border-white/10 px-4 focus-visible:border-accent focus-visible:ring-accent focus-visible:ring-[1px]"
+                      className={`w-full h-12 bg-white/10 border border-white/10 px-4 focus-visible:border-accent focus-visible:ring-accent focus-visible:ring-[1px] ${
+                        isRTL ? "text-right" : "text-left"
+                      }`}
                     >
-                      <SelectValue placeholder="Select a service" />
+                      <SelectValue
+                        placeholder={t.contact.fields.servicePlaceholder}
+                      />
                     </SelectTrigger>
 
                     <SelectContent className="bg-black border-white/20">
@@ -103,21 +120,28 @@ const Contact = () => {
                 </div>
                 {/* textarea */}
                 <div className="w-full">
-                  <Label htmlFor="name">
-                    Message <span className="text-accent">*</span>
+                  <Label htmlFor="message">
+                    {t.contact.fields.message}{" "}
+                    <span className="text-accent">*</span>
                   </Label>
                   <Textarea
                     id="message"
                     name="message"
-                    placeholder="Write your message here"
+                    placeholder={t.contact.fields.message}
                     className="min-h-[160px] bg-white/10 border-white/10 focus-visible:border-accent focus-visible:ring-accent focus-visible:ring-[1px] resize-none p-4 placeholder:text-white/50"
+                    required
                   />
                 </div>
                 {/* btn */}
                 <button className="btn btn-lg btn-accent">
                   <div className="flex items-center gap-3">
-                    <span className="font-medium"> Send Message</span>
-                    <HiOutlineArrowLongRight className="text-xl" />
+                    <span className="font-medium">{t.contact.sendBtn}</span>
+
+                    <HiOutlineArrowLongRight
+                      className={`text-xl transition-transform ${
+                        lang === "he" ? "rotate-180" : ""
+                      }`}
+                    />
                   </div>
                 </button>
               </form>

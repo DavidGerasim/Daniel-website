@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import "swiper/css";
 import "swiper/css/pagination";
 
+import { useI18n } from "../i18nProvider";
+import { dictionaries } from "../i18n";
+
 import Image from "next/image";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -14,6 +17,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { services } from "./services";
 
 const Services = () => {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+  const services = t.services.list;
   const router = useRouter();
 
   return (
@@ -26,8 +32,9 @@ const Services = () => {
         {/* header */}
         <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8">
           <h2 className="h2 max-w-[480px]">
-            Personalized <span className="text-accent">Osteopathic Care</span>{" "}
-            for Your Body
+            {t.services.title.normal}{" "}
+            <span className="text-accent">{t.services.title.accent}</span>{" "}
+            {t.services.title.rest}
           </h2>
         </div>
 
@@ -56,9 +63,7 @@ const Services = () => {
                   />
                   <div
                     onClick={() => {
-                      router.push(
-                        `/login?service=${encodeURIComponent(service.title)}`
-                      );
+                      router.push(`/login?service=${service.id}`);
                     }}
                     className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl hover:rotate-45 transition-all cursor-pointer"
                   >

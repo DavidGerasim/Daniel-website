@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { fetchUsersCount } from "@/services/stats.api";
 
-const Stats = () => {
+const Stats = ({ stats }) => {
   const [usersCount, setUsersCount] = useState(0);
 
   useEffect(() => {
@@ -18,16 +18,14 @@ const Stats = () => {
           <CountUp end={3} duration={5} delay={2} />
           <span>+</span>
         </div>
-        <span>
-          Years <br /> Experience
-        </span>
+        <span>{stats.yearsExperience}</span>
       </div>
 
       <div className="flex gap-4">
         <div className="text-5xl font-bold text-accent">
           <CountUp end={usersCount} duration={2} />
         </div>
-        <span>Clients</span>
+        <span>{stats.clients}</span>
       </div>
     </div>
   );

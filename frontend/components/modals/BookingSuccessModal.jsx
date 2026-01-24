@@ -1,3 +1,4 @@
+// frontend/components/modals/BookingSuccessModal.jsx
 export default function BookingSuccessModal({ show }) {
   if (!show) return null;
 

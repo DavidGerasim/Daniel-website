@@ -6,6 +6,8 @@ import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { signupUser } from "@/utils/authApi";
+import { useI18n } from "../i18nProvider";
+import { dictionaries } from "../i18n";
 
 // utils
 import { validatePassword } from "@/utils/passwordRules";
@@ -18,6 +20,9 @@ import { Input } from "@/components/ui/input";
 import PasswordToggleInput from "@/components/PasswordToggleInput";
 
 const SignUp = () => {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -96,10 +101,10 @@ const SignUp = () => {
     >
       <div className="w-full max-w-md bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/70 backdrop-blur-xl rounded-2xl p-10 flex flex-col gap-8 shadow-2xl shadow-black/50 border border-white/10">
         <h2 className="text-3xl font-bold text-white text-center">
-          Create Account
+          {t.auth.signup.title}
         </h2>
         <p className="text-white/70 text-center mb-4">
-          Please fill in your details to sign up
+          {t.auth.signup.description}
         </p>
 
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -107,24 +112,24 @@ const SignUp = () => {
           <div className="flex flex-col xl:flex-row gap-4">
             <div className="flex-1">
               <Label htmlFor="firstname" className="text-white">
-                First Name
+                {t.auth.signup.firstname}
               </Label>
               <Input
                 id="firstname"
                 type="text"
-                placeholder="First Name"
+                placeholder={t.auth.signup.firstname}
                 required
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
               />
             </div>
             <div className="flex-1">
               <Label htmlFor="lastname" className="text-white">
-                Last Name
+                {t.auth.signup.lastname}
               </Label>
               <Input
                 id="lastname"
                 type="text"
-                placeholder="Last Name"
+                placeholder={t.auth.signup.lastname}
                 required
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
               />
@@ -134,7 +139,7 @@ const SignUp = () => {
           {/* Email */}
           <div>
             <Label htmlFor="email" className="text-white">
-              Email
+              {t.auth.signup.email}
             </Label>
             <Input
               id="email"
@@ -164,7 +169,7 @@ const SignUp = () => {
           {/* Phone */}
           <div>
             <Label htmlFor="phone" className="text-white">
-              Phone Number
+              {t.auth.signup.phone}
             </Label>
             <Input
               id="phone"
@@ -189,7 +194,7 @@ const SignUp = () => {
           {/* Password */}
           <div>
             <Label htmlFor="password" className="text-white">
-              Password
+              {t.auth.signup.password}
             </Label>
             <PasswordToggleInput
               value={password}
@@ -202,7 +207,7 @@ const SignUp = () => {
           {/* Confirm Password */}
           <div>
             <Label htmlFor="confirmPassword" className="text-white">
-              Confirm Password
+              {t.auth.signup.confirmPassword}
             </Label>
             <PasswordToggleInput
               value={confirmPassword}
@@ -221,19 +226,24 @@ const SignUp = () => {
             className="btn btn-accent w-full flex items-center justify-center gap-2"
             type="submit"
           >
-            <span>Sign Up</span>
-            <HiOutlineArrowLongRight />
+            <span>{t.auth.signup.signUpBtn}</span>
+
+            <HiOutlineArrowLongRight
+              className={`transition-transform ${
+                lang === "he" ? "rotate-180" : ""
+              }`}
+            />
           </button>
         </form>
 
         {/* Login Link */}
         <p className="text-white/60 text-center">
-          Already have an account?{" "}
+          {t.auth.signup.loginText}{" "}
           <a
             href="/login"
             className="text-accent font-semibold text-lg hover:brightness-125 transition"
           >
-            Login
+            {t.auth.signup.loginLink}
           </a>
         </p>
       </div>

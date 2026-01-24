@@ -125,6 +125,8 @@ export default {
       title: "Welcome",
       description: "Please login to your account",
       email: "Email",
+      emailPlaceholder: "youremail@gmail.com",
+      emailSpaceError: "Email address cannot contain spaces",
       password: "Password",
       loginBtn: "Login",
       loggingIn: "Logging in...",
@@ -132,6 +134,7 @@ export default {
       forgotPasswordLink: "Reset it here",
       signupText: "Don't have an account?",
       signupLink: "Sign up",
+      serverError: "Server is not responding",
     },
 
     // --- SignUp ---
@@ -141,12 +144,17 @@ export default {
       firstname: "First Name",
       lastname: "Last Name",
       email: "Email",
+      emailPlaceholder: "youremail@gmail.com",
+      emailSpaceError: "Email address cannot contain spaces",
       phone: "Phone Number",
+      phonePlaceholder: "0501234567",
       password: "Password",
       confirmPassword: "Confirm Password",
+      passwordMismatch: "Passwords do not match",
       signUpBtn: "Sign Up",
       loginText: "Already have an account?",
       loginLink: "Login",
+      serverError: "Server error. Please try again later.",
     },
 
     // --- Dashboard Page ---
@@ -179,17 +187,6 @@ export default {
         },
       },
     },
-
-    // --- Forgot Password ---
-    forgotPassword: {
-      title: "Forgot Password",
-      description:
-        "Enter your email and we’ll send you a link to reset your password.",
-      email: "Email",
-      sendBtn: "Send Reset Link",
-      sending: "Sending...",
-      backToLogin: "Back to login",
-    },
   },
 
   // --- Forgot Password ---
@@ -205,6 +202,7 @@ export default {
     sendBtn: "Send Reset Link",
     sendingBtn: "Sending...",
     backToLogin: "Back to login",
+    rememberedText: "Remembered your password? ",
   },
 
   // --- Navbar ---

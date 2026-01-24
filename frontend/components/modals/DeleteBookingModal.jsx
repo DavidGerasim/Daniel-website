@@ -1,3 +1,4 @@
+// frontend/components/modals/DeleteBookingModal.jsx
 export default function DeleteBookingModal({ booking, onCancel, onConfirm }) {
   if (!booking) return null;
 

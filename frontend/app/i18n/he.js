@@ -120,6 +120,8 @@ export default {
       title: "ברוך הבא",
       description: "אנא התחבר לחשבונך",
       email: "דואר אלקטרוני",
+      emailPlaceholder: "youremail@gmail.com",
+      emailSpaceError: "כתובת המייל לא יכולה להכיל רווחים",
       password: "סיסמה",
       loginBtn: "התחבר",
       loggingIn: "מתחבר...",
@@ -127,6 +129,7 @@ export default {
       forgotPasswordLink: "אפס כאן",
       signupText: "אין לך חשבון?",
       signupLink: "הרשם",
+      serverError: "השרת לא מגיב",
     },
 
     // --- SignUp ---
@@ -136,12 +139,17 @@ export default {
       firstname: "שם פרטי",
       lastname: "שם משפחה",
       email: "דואר אלקטרוני",
+      emailPlaceholder: "youremail@gmail.com",
+      emailSpaceError: "כתובת המייל לא יכולה להכיל רווחים",
       phone: "מספר טלפון",
+      phonePlaceholder: "0501234567",
       password: "סיסמה",
       confirmPassword: "אשר סיסמה",
+      passwordMismatch: "הסיסמאות לא תואמות",
       signUpBtn: "הרשם",
       loginText: "כבר יש לך חשבון?",
       loginLink: "התחבר",
+      serverError: "שגיאה בשרת. אנא נסה שוב מאוחר יותר.",
     },
 
     // --- Dashboard Page ---
@@ -174,16 +182,6 @@ export default {
         },
       },
     },
-
-    // --- Forgot Password ---
-    forgotPassword: {
-      title: "שכחת סיסמה",
-      description: "הזן את הדואר האלקטרוני שלך ונשלח לך קישור לאיפוס הסיסמה.",
-      email: "דואר אלקטרוני",
-      sendBtn: "שלח קישור לאיפוס",
-      sending: "שולח...",
-      backToLogin: "חזרה להתחברות",
-    },
   },
 
   // --- Forgot Password (Standalone Page) ---
@@ -198,6 +196,7 @@ export default {
     sendBtn: "שלח קישור לאיפוס",
     sendingBtn: "שולח...",
     backToLogin: "חזרה להתחברות",
+    rememberedText: "זוכרת את הסיסמה שלך? ",
   },
 
   // --- Navbar ---

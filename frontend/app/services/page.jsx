@@ -40,6 +40,7 @@ const Services = () => {
 
         {/* slider */}
         <Swiper
+          key={lang}
           spaceBetween={30}
           slidesPerView={1}
           breakpoints={{

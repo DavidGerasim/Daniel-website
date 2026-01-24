@@ -6,8 +6,12 @@ import { resetPassword } from "@/utils/authApi";
 import { validatePassword } from "@/utils/passwordRules";
 import PasswordToggleInput from "@/components/PasswordToggleInput";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "../i18nProvider";
+import { dictionaries } from "../i18n";
 
 const ResetPassword = () => {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
@@ -77,11 +81,11 @@ const ResetPassword = () => {
         className="w-full max-w-md bg-gray-900 p-8 rounded-xl space-y-6"
       >
         <h2 className="text-2xl font-bold text-white text-center">
-          Reset Password
+          {t.resetPassword.title}
         </h2>
 
         <div>
-          <Label className="text-white">New Password</Label>
+          <Label className="text-white">{t.resetPassword.newPassword}</Label>
           <PasswordToggleInput
             value={password}
             onChange={(e) => handlePasswordChange(e.target.value)}
@@ -91,7 +95,9 @@ const ResetPassword = () => {
         </div>
 
         <div>
-          <Label className="text-white">Confirm Password</Label>
+          <Label className="text-white">
+            {t.resetPassword.confirmPassword}
+          </Label>
           <PasswordToggleInput
             value={confirm}
             onChange={(e) => handleConfirmChange(e.target.value)}
@@ -106,12 +112,12 @@ const ResetPassword = () => {
 
         {success && (
           <p className="text-green-400 text-sm text-center">
-            Password reset successful. Redirecting to login...
+            {t.resetPassword.successMsg}
           </p>
         )}
 
         <button disabled={loading} className="btn btn-accent w-full">
-          {loading ? "Saving..." : "Reset Password"}
+          {loading ? t.resetPassword.saving : t.resetPassword.resetBtn}
         </button>
       </form>
     </section>

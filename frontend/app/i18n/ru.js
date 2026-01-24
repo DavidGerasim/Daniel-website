@@ -122,6 +122,8 @@ export default {
       title: "Добро пожаловать",
       description: "Пожалуйста, войдите в свой аккаунт",
       email: "Эл. почта",
+      emailPlaceholder: "youremail@gmail.com",
+      emailSpaceError: "Адрес электронной почты не может содержать пробелы",
       password: "Пароль",
       loginBtn: "Войти",
       loggingIn: "Вход в систему...",
@@ -129,6 +131,7 @@ export default {
       forgotPasswordLink: "Сбросить здесь",
       signupText: "Нет аккаунта?",
       signupLink: "Зарегистрироваться",
+      serverError: "Сервер не отвечает",
     },
 
     // --- SignUp ---
@@ -138,12 +141,17 @@ export default {
       firstname: "Имя",
       lastname: "Фамилия",
       email: "Эл. почта",
+      emailPlaceholder: "youremail@gmail.com",
+      emailSpaceError: "Адрес электронной почты не может содержать пробелы",
       phone: "Телефон",
+      phonePlaceholder: "0501234567",
       password: "Пароль",
       confirmPassword: "Подтвердите пароль",
+      passwordMismatch: "Пароли не совпадают",
       signUpBtn: "Зарегистрироваться",
       loginText: "Уже есть аккаунт?",
       loginLink: "Войти",
+      serverError: "Сервер не отвечает",
     },
 
     // --- Dashboard Page ---
@@ -176,17 +184,6 @@ export default {
         },
       },
     },
-
-    // --- Forgot Password ---
-    forgotPassword: {
-      title: "Забыли пароль",
-      description:
-        "Введите ваш эл. адрес, и мы отправим ссылку для сброса пароля.",
-      email: "Эл. почта",
-      sendBtn: "Отправить ссылку для сброса",
-      sending: "Отправка...",
-      backToLogin: "Вернуться к входу",
-    },
   },
 
   // --- Forgot Password (Standalone Page) ---
@@ -203,6 +200,7 @@ export default {
     sendBtn: "Отправить ссылку для сброса",
     sendingBtn: "Отправка...",
     backToLogin: "Вернуться к входу",
+    rememberedText: "Запомнили пароль? ",
   },
 
   // --- Navbar ---

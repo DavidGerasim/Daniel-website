@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
+import { useI18n } from "../i18nProvider";
+import { dictionaries } from "../i18n";
 
 // utils
 import { validateEmailInput } from "@/utils/emailValidation";
@@ -13,6 +15,9 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 const ForgotPassword = () => {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [serverError, setServerError] = useState("");
@@ -33,7 +38,7 @@ const ForgotPassword = () => {
     setLoading(true);
 
     try {
-      await forgotPassword(email); // 🔐 קריאה אמיתית ל־API
+      await forgotPassword(email);
       setSuccess(true);
       setEmail("");
     } catch (err) {
@@ -56,17 +61,17 @@ const ForgotPassword = () => {
     >
       <div className="w-full max-w-md bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/70 backdrop-blur-xl rounded-2xl p-10 flex flex-col gap-8 shadow-2xl shadow-black/50 border border-white/10">
         <h2 className="text-3xl font-bold text-white text-center">
-          Forgot Password
+          {t.forgotPassword.title}
         </h2>
 
         <p className="text-white/70 text-center">
-          Enter your email and we’ll send you a link to reset your password.
+          {t.forgotPassword.description}
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div>
             <Label htmlFor="email" className="text-white">
-              Email
+              {t.forgotPassword.email}
             </Label>
             <Input
               id="email"
@@ -108,18 +113,22 @@ const ForgotPassword = () => {
             disabled={loading}
             className="btn btn-accent w-full flex items-center justify-center gap-2"
           >
-            <span>{loading ? "Sending..." : "Send Reset Link"}</span>
-            <HiOutlineArrowLongRight />
+            <span>
+              {loading ? t.forgotPassword.sending : t.forgotPassword.sendBtn}
+            </span>
+            <HiOutlineArrowLongRight
+              className={lang === "he" ? "rotate-180" : ""}
+            />
           </button>
         </form>
 
         <p className="text-white/60 text-center">
-          Remembered your password?{" "}
+          {t.forgotPassword.rememberedText}
           <a
             href="/login"
             className="text-accent font-semibold hover:brightness-125 transition"
           >
-            Back to login
+            {t.forgotPassword.backToLogin}
           </a>
         </p>
       </div>

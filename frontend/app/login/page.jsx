@@ -70,22 +70,20 @@ const Login = () => {
     >
       <div className="w-full max-w-md bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/70 backdrop-blur-xl rounded-2xl p-10 flex flex-col gap-8 shadow-2xl shadow-black/50 border border-white/10">
         <h2 className="text-3xl font-bold text-white text-center">
-          {t.auth.login.title}
+          {t.login.title}
         </h2>
-        <p className="text-white/70 text-center mb-4">
-          {t.auth.login.description}
-        </p>
+        <p className="text-white/70 text-center mb-4">{t.login.description}</p>
 
         <form onSubmit={handleLogin} className="flex flex-col gap-6">
           {/* Email */}
           <div>
             <Label htmlFor="email" className="text-white">
-              {t.auth.login.email}
+              {t.login.email}
             </Label>
             <Input
               id="email"
               type="text"
-              placeholder={t.auth.login.emailPlaceholder}
+              placeholder={t.login.emailPlaceholder}
               value={email}
               onChange={(e) => {
                 const value = e.target.value;
@@ -109,7 +107,7 @@ const Login = () => {
           {/* Password */}
           <div>
             <Label htmlFor="password" className="text-white">
-              {t.auth.login.password}
+              {t.login.password}
             </Label>
             <PasswordToggleInput
               value={password}
@@ -130,9 +128,7 @@ const Login = () => {
             disabled={loading}
             className="btn btn-accent w-full flex items-center justify-center gap-2"
           >
-            <span>
-              {loading ? t.auth.login.loggingIn : t.auth.login.loginBtn}
-            </span>
+            <span>{loading ? t.login.loggingIn : t.login.loginBtn}</span>
 
             <HiOutlineArrowLongRight
               className={`transition-transform ${
@@ -156,7 +152,7 @@ const Login = () => {
         </form>
 
         <p className="text-white/60 text-center">
-          {t.auth.login.signupText}{" "}
+          {t.login.signupText}{" "}
           <a
             href={
               selectedService
@@ -165,7 +161,7 @@ const Login = () => {
             }
             className="text-accent font-semibold text-lg hover:brightness-125 transition"
           >
-            {t.auth.login.signupLink}
+            {t.login.signupLink}
           </a>
         </p>
       </div>

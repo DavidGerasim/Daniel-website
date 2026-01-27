@@ -4,6 +4,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { services } from "../services/services";
+import { useI18n } from "../i18nProvider";
+import { dictionaries } from "../i18n";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -27,6 +29,10 @@ import {
 import { useSearchParams } from "next/navigation";
 
 export default function Dashboard() {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+  const services = t.services.list;
+
   const router = useRouter();
   const [treatmentHistory, setTreatmentHistory] = useState([]);
   const [service, setService] = useState("");
@@ -47,7 +53,7 @@ export default function Dashboard() {
   }, [searchParams]);
 
   useEffect(() => {
-    document.title = "Dashboard";
+    document.title = t.dashboard.title;
 
     const fetchUserData = async () => {
       try {
@@ -88,12 +94,6 @@ export default function Dashboard() {
   //---------------------------------------------------------------
   const handleBooking = async (e) => {
     e.preventDefault();
-    setError("");
-
-    if (!service || !date || !time) {
-      setError("Please fill in all fields");
-      return;
-    }
 
     try {
       const booking = await createBooking({
@@ -152,12 +152,11 @@ export default function Dashboard() {
 
       {/* TOP – Treatment History */}
       <div className="bg-gray-900/80 rounded-2xl p-6">
-        <h2 className="text-xl font-bold mb-4">Treatment History</h2>
-
+        <h2 className="text-xl font-bold mb-4">{t.dashboard.history.title}</h2>
         {error && <p className="text-red-400">{error}</p>}
 
         {treatmentHistory.length === 0 ? (
-          <p className="text-gray-400">No treatments found.</p>
+          <p className="text-gray-400">{t.dashboard.history.empty}</p>
         ) : (
           <DashboardHistorySlider
             treatmentHistory={treatmentHistory}
@@ -168,8 +167,7 @@ export default function Dashboard() {
 
       {/* BOTTOM – booking form */}
       <div className="flex-1 bg-gray-900/80 rounded-2xl p-6 flex flex-col gap-6 overflow-y-auto">
-        <h2 className="text-2xl font-bold">Book a Treatment</h2>
-
+        <h2 className="text-2xl font-bold">{t.dashboard.booking.title}</h2>
         <form className="flex flex-col gap-6" onSubmit={handleBooking}>
           {/* service selector */}
           <div className="flex gap-4 overflow-x-auto pb-2">
@@ -245,7 +243,7 @@ export default function Dashboard() {
               !service || !date || !time ? "opacity-40 cursor-not-allowed" : ""
             }`}
           >
-            Book
+            {t.dashboard.booking.submit}
           </button>
         </form>
       </div>

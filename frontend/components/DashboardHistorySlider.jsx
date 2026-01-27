@@ -3,11 +3,29 @@
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { useI18n } from "@/app/i18nProvider";
+import { dictionaries } from "@/app/i18n";
+
 import "swiper/css";
 import "swiper/css/pagination";
 
 export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
+  const { lang } = useI18n();
+  const t = dictionaries[lang];
+
   const now = new Date();
+
+  // תרגום השירות לפי השפה
+  const translateService = (serviceName) => {
+    // מחפש את השירות לפי השם באנגלית
+    const serviceObj = dictionaries["en"].services.list.find(
+      (s) => s.title === serviceName
+    );
+    if (!serviceObj) return serviceName; // fallback
+    // מחזיר את השם לפי השפה הנוכחית
+    const translated = t.services.list.find((s) => s.id === serviceObj.id);
+    return translated ? translated.title : serviceName;
+  };
 
   const isFuture = (t) => {
     const [hours, minutes] = t.time.split(":").map(Number);
@@ -73,7 +91,7 @@ export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
               {isFuture(treatment) && (
                 <button
                   onClick={() => onDelete(treatment)}
-                  className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition"
+                  className="absolute top-2 right-2 rtl:right-auto rtl:left-2 text-gray-400 hover:text-red-500 transition"
                   title="Cancel booking"
                 >
                   🗑️
@@ -81,12 +99,12 @@ export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
               )}
 
               <h5 className="text-base font-semibold leading-tight">
-                {treatment.service}
+                {translateService(treatment.service)}
               </h5>
 
               <div className="flex flex-col gap-0.5">
                 <span className="text-sm text-gray-400 flex items-center gap-1">
-                  📅 {new Date(treatment.date).toLocaleDateString("he-IL")}
+                  📅 {new Date(treatment.date).toLocaleDateString(lang)}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
                   🕒 {treatment.time}

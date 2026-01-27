@@ -1,4 +1,4 @@
-// services/bookings.api.js
+// frontend/services/bookings.api.js
 import { getToken, clearAuth } from "./auth";
 
 const BASE_URL = "http://localhost:5000/api/bookings";

@@ -14,7 +14,7 @@ import Image from "next/image";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { services } from "./services";
+// import { services } from "./services";
 
 const Services = () => {
   const { lang } = useI18n();

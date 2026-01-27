@@ -5,12 +5,17 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/app/i18nProvider";
-import { dictionaries } from "@/app/i18n";
+import { dictionaries } from "@/app/i18n/index";
 
 const NavLinks = ({ containerStyles }) => {
   const pathname = usePathname();
   const { lang } = useI18n();
   const t = dictionaries[lang];
+
+  console.log("lang:", lang);
+  console.log("dictionaries:", dictionaries);
+  console.log("t:", t);
+  console.log("t.nav:", t?.nav);
 
   const links = [
     { name: t.nav.home, path: "/" },

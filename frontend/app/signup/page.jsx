@@ -101,35 +101,33 @@ const SignUp = () => {
     >
       <div className="w-full max-w-md bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-700/70 backdrop-blur-xl rounded-2xl p-10 flex flex-col gap-8 shadow-2xl shadow-black/50 border border-white/10">
         <h2 className="text-3xl font-bold text-white text-center">
-          {t.auth.signup.title}
+          {t.signup.title}
         </h2>
-        <p className="text-white/70 text-center mb-4">
-          {t.auth.signup.description}
-        </p>
+        <p className="text-white/70 text-center mb-4">{t.signup.description}</p>
 
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           {/* First & Last Name */}
           <div className="flex flex-col xl:flex-row gap-4">
             <div className="flex-1">
               <Label htmlFor="firstname" className="text-white">
-                {t.auth.signup.firstname}
+                {t.signup.firstname}
               </Label>
               <Input
                 id="firstname"
                 type="text"
-                placeholder={t.auth.signup.firstname}
+                placeholder={t.signup.firstname}
                 required
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
               />
             </div>
             <div className="flex-1">
               <Label htmlFor="lastname" className="text-white">
-                {t.auth.signup.lastname}
+                {t.signup.lastname}
               </Label>
               <Input
                 id="lastname"
                 type="text"
-                placeholder={t.auth.signup.lastname}
+                placeholder={t.signup.lastname}
                 required
                 className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus-visible:border-accent focus-visible:ring-accent"
               />
@@ -139,7 +137,7 @@ const SignUp = () => {
           {/* Email */}
           <div>
             <Label htmlFor="email" className="text-white">
-              {t.auth.signup.email}
+              {t.signup.email}
             </Label>
             <Input
               id="email"
@@ -169,7 +167,7 @@ const SignUp = () => {
           {/* Phone */}
           <div>
             <Label htmlFor="phone" className="text-white">
-              {t.auth.signup.phone}
+              {t.signup.phone}
             </Label>
             <Input
               id="phone"
@@ -194,7 +192,7 @@ const SignUp = () => {
           {/* Password */}
           <div>
             <Label htmlFor="password" className="text-white">
-              {t.auth.signup.password}
+              {t.signup.password}
             </Label>
             <PasswordToggleInput
               value={password}
@@ -207,7 +205,7 @@ const SignUp = () => {
           {/* Confirm Password */}
           <div>
             <Label htmlFor="confirmPassword" className="text-white">
-              {t.auth.signup.confirmPassword}
+              {t.signup.confirmPassword}
             </Label>
             <PasswordToggleInput
               value={confirmPassword}
@@ -226,7 +224,7 @@ const SignUp = () => {
             className="btn btn-accent w-full flex items-center justify-center gap-2"
             type="submit"
           >
-            <span>{t.auth.signup.signUpBtn}</span>
+            <span>{t.signup.signUpBtn}</span>
 
             <HiOutlineArrowLongRight
               className={`transition-transform ${
@@ -238,12 +236,12 @@ const SignUp = () => {
 
         {/* Login Link */}
         <p className="text-white/60 text-center">
-          {t.auth.signup.loginText}{" "}
+          {t.signup.loginText}{" "}
           <a
             href="/login"
             className="text-accent font-semibold text-lg hover:brightness-125 transition"
           >
-            {t.auth.signup.loginLink}
+            {t.signup.loginLink}
           </a>
         </p>
       </div>

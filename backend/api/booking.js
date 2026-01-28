@@ -1,4 +1,4 @@
-// api/booking.js
+// backend/api/booking.js
 import express from "express";
 import Booking from "../models/Booking.js";
 import User from "../models/User.js";
@@ -29,12 +29,12 @@ const auth = (req, res, next) => {
 
 // --- POST new booking ---
 router.post("/", auth, async (req, res) => {
-  const { service, date, time } = req.body;
+  const { serviceId, date, time } = req.body;
   console.log("POST /bookings, body:", req.body);
 
   try {
     const booking = await Booking.create({
-      service,
+      serviceId,
       date,
       time,
       userId: req.userId,

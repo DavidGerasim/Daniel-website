@@ -93,7 +93,7 @@ const Login = () => {
               onKeyDown={(e) => {
                 if (e.key === " ") {
                   e.preventDefault();
-                  setEmailError(t.auth.login.emailSpaceError);
+                  setEmailError(t.login.emailSpaceError);
                 }
               }}
               required
@@ -140,12 +140,12 @@ const Login = () => {
           {/* Forgot Password */}
           {wrongPassword && (
             <p className="text-red-400 text-sm text-center mt-2">
-              {t.auth.login.forgotPasswordText}{" "}
+              {t.login.forgotPasswordText}{" "}
               <a
                 href="/forgot-password"
                 className="underline text-red-300 hover:text-red-400 transition"
               >
-                {t.auth.login.forgotPasswordLink}
+                {t.login.forgotPasswordLink}
               </a>
             </p>
           )}

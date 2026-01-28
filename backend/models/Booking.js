@@ -1,8 +1,9 @@
+// backend/models/booking.model.js
 import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema(
   {
-    service: { type: String, required: true },
+    serviceId: { type: String, required: true },
     date: { type: String, required: true },
     time: { type: String, required: true },
     userId: {

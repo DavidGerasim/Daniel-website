@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { services } from "../services/services";
 import { useI18n } from "../i18nProvider";
 import { dictionaries } from "../i18n";
 
@@ -48,9 +47,10 @@ export default function Dashboard() {
   useEffect(() => {
     const serviceFromUrl = searchParams.get("service");
     if (serviceFromUrl) {
-      setService(serviceFromUrl);
+      const svc = services.find((s) => s.id === serviceFromUrl);
+      if (svc) setService(svc.title);
     }
-  }, [searchParams]);
+  }, [searchParams, services]);
 
   useEffect(() => {
     document.title = t.dashboard.title;
@@ -97,7 +97,7 @@ export default function Dashboard() {
 
     try {
       const booking = await createBooking({
-        service,
+        serviceId: service,
         date: date.toLocaleDateString("en-CA"),
         time,
       });
@@ -172,14 +172,14 @@ export default function Dashboard() {
           {/* service selector */}
           <div className="flex gap-4 overflow-x-auto pb-2">
             {services.map((s) => {
-              const isSelected = service === s.title;
+              const isSelected = service === s.id;
 
               return (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => {
-                    setService(s.title);
+                    setService(s.id);
                     setDate(null);
                     setTime("");
                   }}

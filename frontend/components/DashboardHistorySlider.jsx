@@ -15,16 +15,9 @@ export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
 
   const now = new Date();
 
-  // תרגום השירות לפי השפה
-  const translateService = (serviceName) => {
-    // מחפש את השירות לפי השם באנגלית
-    const serviceObj = dictionaries["en"].services.list.find(
-      (s) => s.title === serviceName
-    );
-    if (!serviceObj) return serviceName; // fallback
-    // מחזיר את השם לפי השפה הנוכחית
-    const translated = t.services.list.find((s) => s.id === serviceObj.id);
-    return translated ? translated.title : serviceName;
+  const translateService = (serviceId) => {
+    const translated = t.services.list.find((s) => s.id === serviceId);
+    return translated ? translated.title : "Service not found";
   };
 
   const isFuture = (t) => {
@@ -56,7 +49,7 @@ export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
 
   // התור האחרון שעבר (רק אחד!)
   const lastPastBooking = pastBookings.sort(
-    (a, b) => getDateTime(b) - getDateTime(a)
+    (a, b) => getDateTime(b) - getDateTime(a),
   )[0];
 
   // הרשימה הסופית להצגה
@@ -99,12 +92,20 @@ export default function DashboardHistorySlider({ treatmentHistory, onDelete }) {
               )}
 
               <h5 className="text-base font-semibold leading-tight">
-                {translateService(treatment.service)}
+                {translateService(treatment.serviceId)}
               </h5>
 
               <div className="flex flex-col gap-0.5">
                 <span className="text-sm text-gray-400 flex items-center gap-1">
-                  📅 {new Date(treatment.date).toLocaleDateString(lang)}
+                  📅{" "}
+                  {new Date(treatment.date).toLocaleDateString(
+                    lang === "he" ? "he-IL" : "en-GB",
+                    {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    },
+                  )}
                 </span>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
                   🕒 {treatment.time}

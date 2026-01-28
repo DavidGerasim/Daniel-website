@@ -38,14 +38,14 @@ export async function fetchBookedTimes(dateString) {
 }
 
 // יצירת תור חדש
-export async function createBooking({ service, date, time }) {
+export async function createBooking({ serviceId, date, time }) {
   const res = await fetch(BASE_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       ...getAuthHeaders(),
     },
-    body: JSON.stringify({ service, date, time }),
+    body: JSON.stringify({ serviceId, date, time }), // ✅ עכשיו backend יקבל את השדה הנכון
   });
 
   const data = await res.json();

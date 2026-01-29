@@ -9,6 +9,7 @@ import login from "./login";
 import signup from "./signup";
 import dashboard from "./dashboard";
 import forgotPassword from "./forgotPassword";
+import resetPassword from "./resetPassword";
 
 export default {
   nav,
@@ -21,4 +22,5 @@ export default {
   signup,
   dashboard,
   forgotPassword,
+  resetPassword,
 };

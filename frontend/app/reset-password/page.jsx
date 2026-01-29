@@ -89,7 +89,7 @@ const ResetPassword = () => {
           <PasswordToggleInput
             value={password}
             onChange={(e) => handlePasswordChange(e.target.value)}
-            placeholder="Enter new password"
+            placeholder={t.resetPassword.newPasswordPlaceholder}
             errorMessages={passwordErrors}
           />
         </div>
@@ -101,7 +101,7 @@ const ResetPassword = () => {
           <PasswordToggleInput
             value={confirm}
             onChange={(e) => handleConfirmChange(e.target.value)}
-            placeholder="Confirm new password"
+            placeholder={t.resetPassword.confirmPasswordPlaceholder}
             errorMessages={confirmError ? [confirmError] : []}
           />
         </div>

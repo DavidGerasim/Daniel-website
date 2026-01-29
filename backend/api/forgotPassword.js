@@ -2,6 +2,7 @@
 import express from "express";
 import crypto from "crypto";
 import User from "../models/User.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 const router = express.Router();
 
@@ -47,11 +48,22 @@ router.post("/", async (req, res) => {
     console.log("🔑 Reset token generated");
     console.log(
       "⏳ Token expires at:",
-      new Date(user.passwordResetExpires).toISOString()
+      new Date(user.passwordResetExpires).toISOString(),
     );
 
     const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
     console.log("🔗 Password reset link:", resetLink);
+
+    await sendEmail({
+      to: user.email,
+      subject: "Reset your password",
+      html: `
+    <p>Hi ${user.name},</p>
+    <p>Click the link below to reset your password:</p>
+    <a href="${resetLink}">${resetLink}</a>
+    <p>This link is valid for 15 minutes.</p>
+  `,
+    });
 
     res.json({ message: "If this email exists, a reset link was sent" });
   } catch (err) {

@@ -8,6 +8,7 @@ import login from "./login";
 import signup from "./signup";
 import dashboard from "./dashboard";
 import forgotPassword from "./forgotPassword";
+import resetPassword from "./resetPassword";
 import nav from "./nav";
 
 const ru = {
@@ -20,6 +21,7 @@ const ru = {
   signup,
   dashboard,
   forgotPassword,
+  resetPassword,
   nav,
 };
 

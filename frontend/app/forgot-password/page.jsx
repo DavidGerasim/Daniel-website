@@ -43,7 +43,7 @@ const ForgotPassword = () => {
       setEmail("");
     } catch (err) {
       setServerError(
-        err.message || "Something went wrong. Please try again later."
+        err.message || "Something went wrong. Please try again later.",
       );
     } finally {
       setLoading(false);
@@ -76,7 +76,7 @@ const ForgotPassword = () => {
             <Input
               id="email"
               type="email"
-              placeholder="youremail@gmail.com"
+              placeholder={t.forgotPassword.emailPlaceholder}
               value={email}
               onChange={(e) => {
                 const value = e.target.value;

@@ -1,4 +1,4 @@
-// utils/passwordRules.jsx
+// frontend/utils/passwordRules.jsx
 export const passwordRules = {
   minLength: 8,
   requireNumber: true,
@@ -18,20 +18,12 @@ export function validatePassword(password) {
 
   let errors = [];
 
-  if (password.length < minLength)
-    errors.push(`Password must be at least ${minLength} characters`);
-
-  if (requireNumber && !/\d/.test(password))
-    errors.push("Password must contain at least one number");
-
-  if (requireUppercase && !/[A-Z]/.test(password))
-    errors.push("Password must contain at least one uppercase letter");
-
-  if (requireLowercase && !/[a-z]/.test(password))
-    errors.push("Password must contain at least one lowercase letter");
-
+  if (password.length < minLength) errors.push("minLength");
+  if (requireNumber && !/\d/.test(password)) errors.push("number");
+  if (requireUppercase && !/[A-Z]/.test(password)) errors.push("uppercase");
+  if (requireLowercase && !/[a-z]/.test(password)) errors.push("lowercase");
   if (requireSpecialChar && !/[!@#$%^&*]/.test(password))
-    errors.push("Password must contain at least one special character");
+    errors.push("special");
 
   return {
     isValid: errors.length === 0,

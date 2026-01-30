@@ -29,10 +29,12 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordErrors, setPasswordErrors] = useState([]);
-  const [confirmError, setConfirmError] = useState("");
+  //   const [confirmError, setConfirmError] = useState("");
+  const [confirmErrorKey, setConfirmErrorKey] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [serverError, setServerError] = useState("");
+
   const searchParams = useSearchParams();
   const selectedService = searchParams.get("service");
 
@@ -44,16 +46,18 @@ const SignUp = () => {
     setPasswordErrors(result.errors);
 
     if (confirmPassword) {
-      setConfirmError(
-        value === confirmPassword ? "" : "Passwords do not match",
-      );
+      setConfirmErrorKey(value === confirmPassword ? "" : "passwordMismatch");
     }
   };
+
+  const translatedPasswordErrors = passwordErrors.map(
+    (key) => t.signup.passwordRules[key],
+  );
 
   const handleConfirmChange = (e) => {
     const value = e.target.value;
     setConfirmPassword(value);
-    setConfirmError(value === password ? "" : "Passwords do not match");
+    setConfirmErrorKey(value === password ? "" : "passwordMismatch");
   };
 
   const handleSubmit = async (e) => {
@@ -199,7 +203,9 @@ const SignUp = () => {
                 value={password}
                 onChange={handlePasswordChange}
                 placeholder="********"
-                errorMessages={passwordErrors}
+                errorMessages={passwordErrors.map(
+                  (key) => t.signup.passwordRules[key],
+                )}
               />
             </div>
 
@@ -212,7 +218,9 @@ const SignUp = () => {
                 value={confirmPassword}
                 onChange={handleConfirmChange}
                 placeholder="********"
-                errorMessages={confirmError ? [confirmError] : []}
+                errorMessages={
+                  confirmErrorKey ? [t.signup[confirmErrorKey]] : []
+                }
               />
             </div>
 

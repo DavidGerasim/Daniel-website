@@ -1,3 +1,4 @@
+// frontend/app/layout.jsx
 import "./globals.css";
 import { I18nProvider } from "./i18nProvider";
 import FontWrapper from "./FontWrapper";
@@ -27,9 +28,11 @@ export default function RootLayout({ children }) {
                   <div className="hidden 2xl:flex w-[285px] h-screen bg-secondary">
                     <MainNav />
                   </div>
-                  <div className="w-full max-w-[1130px] px-[15px] mx-auto">
+                  <div className="w-full max-w-[1130px] px-[15px] mx-auto h-screen flex flex-col">
                     <Header />
-                    <div>{children}</div>
+
+                    {/* scrollable page content */}
+                    <div className="flex-1 overflow-hidden">{children}</div>
                   </div>
                 </div>
               </PageTransition>

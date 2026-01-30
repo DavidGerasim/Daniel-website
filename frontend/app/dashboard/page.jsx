@@ -131,7 +131,7 @@ export default function Dashboard() {
       await deleteBookingById(bookingToDelete._id);
 
       setTreatmentHistory((prev) =>
-        prev.filter((b) => b._id !== bookingToDelete._id)
+        prev.filter((b) => b._id !== bookingToDelete._id),
       );
 
       setBookingToDelete(null);
@@ -166,7 +166,7 @@ export default function Dashboard() {
       </div>
 
       {/* BOTTOM – booking form */}
-      <div className="flex-1 bg-gray-900/80 rounded-2xl p-6 flex flex-col gap-6 overflow-y-auto">
+      <div className="flex-1 bg-gray-900/80 rounded-2xl p-6 pb-24 flex flex-col gap-6 overflow-y-auto">
         <h2 className="text-2xl font-bold">{t.dashboard.booking.title}</h2>
         <form className="flex flex-col gap-6" onSubmit={handleBooking}>
           {/* service selector */}

@@ -5,16 +5,21 @@ export default {
     accent: "קשר",
   },
 
-  description: "לורם איפסום דולור סיט אמט קונסקטורר אדיפיסינג אליט.",
+  description: "מוזמן לפנות אליי בכל שאלה, שיתוף פעולה או קביעת פגישה.",
 
   fields: {
     firstname: "שם פרטי",
     lastname: "שם משפחה",
     email: "אימייל",
-    service: "אני מתעניין ב־",
+    service: "אני מתעניין ב",
     servicePlaceholder: "בחר שירות",
     message: "הודעה",
   },
 
   sendBtn: "שלח הודעה",
+
+  successModal: {
+    title: "ההודעה נשלחה!",
+    message: "תודה שפנית אליי, אחזור אליך בהקדם.",
+  },
 };

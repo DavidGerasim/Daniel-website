@@ -1,5 +1,6 @@
 // frontend/app/contact/page.jsx
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -14,7 +15,8 @@ import {
 // import { services } from "@/app/services/services";
 import { useI18n } from "../i18nProvider";
 import { dictionaries } from "../i18n";
-
+import { sendContactMessage } from "@/services/contact.api";
+import ContactSuccessModal from "@/components/modals/ContactSuccessModal";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 
 const Contact = () => {
@@ -22,6 +24,34 @@ const Contact = () => {
   const t = dictionaries[lang];
   const services = t.services.list;
   const isRTL = lang === "he";
+
+  const [service, setService] = useState("");
+  const [successOpen, setSuccessOpen] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const rawFormData = Object.fromEntries(new FormData(e.target));
+
+    const selectedService = services.find((s) => s.id === rawFormData.service);
+
+    const formData = {
+      ...rawFormData,
+      service: selectedService ? selectedService.title : rawFormData.service,
+    };
+
+    try {
+      await sendContactMessage(formData);
+
+      setSuccessOpen(true);
+      e.target.reset();
+      setService("");
+      setTimeout(() => setSuccessOpen(false), 3000);
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "Something went wrong.");
+    }
+  };
 
   return (
     <motion.section
@@ -32,6 +62,11 @@ const Contact = () => {
       }}
       className="h-screen flex items-center py-24 xl:py-0"
     >
+      <ContactSuccessModal
+        open={successOpen}
+        onClose={() => setSuccessOpen(false)}
+      />
+
       <div className="container mx-auto w-full h-full flex flex-col items-center xl:justify-center xl:overflow-hidden scrollbar scrollbar-thumb-accent scrollbar-track-accent/5 overflow-y-scroll xl:overflow-y-visible">
         <div className="w-full">
           <div className="flex flex-col xl:flex-row gap-6">
@@ -47,7 +82,10 @@ const Contact = () => {
             </div>
             {/* form */}
             <div className="flex-1">
-              <form className="flex flex-col gap-6 items-start">
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-6 items-start"
+              >
                 {/* first and last name */}
                 <div className="flex flex-col xl:flex-row gap-6 w-full">
                   <div className="w-full">
@@ -97,7 +135,13 @@ const Contact = () => {
                     <span className="text-accent">*</span>
                   </Label>
 
-                  <Select name="service" required dir={isRTL ? "rtl" : "ltr"}>
+                  <Select
+                    name="service"
+                    value={service}
+                    onValueChange={setService}
+                    required
+                    dir={isRTL ? "rtl" : "ltr"}
+                  >
                     <SelectTrigger
                       id="service"
                       className={`w-full h-12 bg-white/10 border border-white/10 px-4 focus-visible:border-accent focus-visible:ring-accent focus-visible:ring-[1px] ${
@@ -133,7 +177,7 @@ const Contact = () => {
                   />
                 </div>
                 {/* btn */}
-                <button className="btn btn-lg btn-accent">
+                <button type="submit" className="btn btn-lg btn-accent">
                   <div className="flex items-center gap-3">
                     <span className="font-medium">{t.contact.sendBtn}</span>
 

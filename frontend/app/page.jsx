@@ -31,10 +31,10 @@ const Home = () => {
         <div className="flex flex-col xl:flex-row items-center justify-between w-full">
           {/* text */}
           <div className="w-full xl:w-[550px] flex flex-col items-center xl:items-start text-center xl:text-left">
-            <h1 className="h1 mb-[28px] flex flex-wrap items-center gap-x-2">
+            <h1 className="h1 mb-[28px] flex flex-wrap items-center justify-center xl:justify-start gap-x-2 text-center xl:text-left">
               <span>{t.home.greeting}</span>
 
-              <span className="relative inline-block min-w-[170px] text-accent">
+              <span className="relative inline-block text-accent min-w-[160px] xl:min-w-[170px]">
                 <TypeAnimation
                   key={lang}
                   sequence={[t.home.roles[0], 2000, t.home.roles[1], 2000]}

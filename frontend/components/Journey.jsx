@@ -1,12 +1,10 @@
 // frontend/components/Journey.jsx
-const Journey = ({ journey, title }) => {
+const Journey = ({ journey }) => {
   return (
-    <div className="flex flex-col">
-      <h2 className="h2 mb-8">
-        {title.normal} <span className="text-accent">{title.accent}</span>
-      </h2>
+    <div className="flex flex-col gap-16">
       {journey.map((item, index) => {
         const { institution, role, years } = item;
+        const isLast = index === journey.length - 1;
         return (
           <div key={index} className="flex items-center gap-12 w-full">
             {/* bullets */}

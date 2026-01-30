@@ -4,7 +4,10 @@ export default {
     normal: "Get In",
     accent: "Touch",
   },
-  description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+
+  description:
+    "Feel free to reach out for any questions, collaborations, or bookings.",
+
   fields: {
     firstname: "First name",
     lastname: "Last name",
@@ -13,5 +16,11 @@ export default {
     servicePlaceholder: "Select a service",
     message: "Message",
   },
+
   sendBtn: "Send Message",
+
+  successModal: {
+    title: "Message sent!",
+    message: "Thanks for reaching out. I'll get back to you soon.",
+  },
 };

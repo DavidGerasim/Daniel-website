@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import LanguageSelector from "./LanguageSelector";
 
 import NavLinks from "./NavLinks";
 
@@ -26,7 +27,7 @@ const Header = () => {
               <CiMenuFries />
             </SheetTrigger>
             <SheetContent
-              className="bg-primary border-0 flex flex-col items-center pt-16 pb-20"
+              className="bg-primary border-0 flex flex-col h-full pt-16 pb-20 items-center"
               side="right"
             >
               <SheetHeader>
@@ -37,8 +38,15 @@ const Header = () => {
                   Navigation menu
                 </SheetDescription>
               </SheetHeader>
-              <div className="flex-1 flex items-center">
-                <NavLinks containerStyles="flex flex-col gap-16 max-w-[100px]" />
+
+              {/* Nav Links */}
+              <div className="flex flex-col flex-1 items-center justify-center gap-16 w-full">
+                <NavLinks containerStyles="flex flex-col gap-6 items-center w-full" />
+              </div>
+
+              {/* Language Selector */}
+              <div className="mt-auto w-full flex justify-center">
+                <LanguageSelector />
               </div>
             </SheetContent>
           </Sheet>

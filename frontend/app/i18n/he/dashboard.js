@@ -27,36 +27,3 @@ export default {
     cancel: "בטל הזמנה",
   },
 };
-
-// export default {
-//   title: "לוח בקרה",
-
-//   treatmentHistory: {
-//     title: "היסטוריית טיפולים",
-//     noTreatments: "לא נמצאו טיפולים.",
-//     error: "שגיאה בטעינת הטיפולים",
-//   },
-
-//   booking: {
-//     title: "הזמן טיפול",
-//     servicePlaceholder: "בחר שירות",
-//     datePlaceholder: "בחר תאריך",
-//     timePlaceholder: "בחר שעה",
-//     bookBtn: "הזמן",
-//     fillAllFieldsError: "אנא מלא את כל השדות",
-//     successMessage: "הזמנה נוצרה בהצלחה!",
-//   },
-
-//   modals: {
-//     deleteBooking: {
-//       title: "מחיקת הזמנה",
-//       message: "האם אתה בטוח שברצונך למחוק הזמנה זו?",
-//       cancelBtn: "ביטול",
-//       confirmBtn: "מחק",
-//     },
-//     bookingSuccess: {
-//       message: "ההזמנה שלך בוצעה בהצלחה!",
-//       closeBtn: "סגור",
-//     },
-//   },
-// };

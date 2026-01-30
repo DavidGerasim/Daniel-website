@@ -1,4 +1,4 @@
-// services/stats.api.js
+// frontend/services/stats.api.js
 const BASE_URL = "http://localhost:5000/api/stats";
 
 export async function fetchUsersCount() {

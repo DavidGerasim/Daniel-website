@@ -20,12 +20,12 @@ const About = () => {
         opacity: 1,
         transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
       }}
-      className="h-screen flex items-center"
+      className="h-screen flex flex-col md:flex-col justify-center"
     >
       <div className="container mx-auto px-0">
         <div className="flex flex-col xl:flex-row items-center gap-24 w-full h-[680px]">
           {/* Left side */}
-          <div className="w-full h-[680px]">
+          <div className="w-full">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-2 h-2 bg-accent rounded-full"></div>
@@ -43,16 +43,18 @@ const About = () => {
             </div>
           </div>
           {/* Right side - Scrool Area */}
-          <ScrollArea className="w-full h-[680px]">
-            <div>
-              <div className="flex flex-col items-start gap-16">
-                <Journey
-                  journey={t.about.journey}
-                  title={t.about.journeyTitle}
-                />
-              </div>
-            </div>
-          </ScrollArea>
+          <div className="w-full flex flex-col h-auto xl:h-[680px]">
+            {/* Title stays outside the ScrollArea */}
+            <h2 className="h2 mb-8">
+              {t.about.journeyTitle.normal}{" "}
+              <span className="text-accent">{t.about.journeyTitle.accent}</span>
+            </h2>
+
+            {/* ScrollArea only wraps the timeline */}
+            <ScrollArea className="w-full h-[500px] xl:h-[580px]">
+              <Journey journey={t.about.journey} />
+            </ScrollArea>
+          </div>
         </div>
       </div>
     </motion.section>

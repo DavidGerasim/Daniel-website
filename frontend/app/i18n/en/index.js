@@ -11,6 +11,8 @@ import dashboard from "./dashboard";
 import forgotPassword from "./forgotPassword";
 import resetPassword from "./resetPassword";
 import footer from "./footer";
+import accessibility from "./accessibility";
+import privacy from "./privacy";
 
 export default {
   nav,
@@ -25,4 +27,6 @@ export default {
   forgotPassword,
   resetPassword,
   footer,
+  accessibility,
+  privacy,
 };

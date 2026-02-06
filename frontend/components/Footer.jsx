@@ -12,33 +12,30 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-white/10 bg-secondary/30 backdrop-blur-sm py-6">
-      <div className="px-8">
-        <div className="flex flex-col items-center gap-4 text-sm text-white/80">
-          <div className="text-center">
+    <footer className="w-full border-t border-white/10 bg-secondary/30 backdrop-blur-sm py-4">
+      <div className="px-6">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-white/80">
+          <span>
             © {currentYear} {t.businessName} – {t.rights}
-          </div>
+          </span>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/privacy" className="hover:text-accent transition">
-              {t.privacy}
-            </Link>
+          <span className="hidden sm:inline">|</span>
 
-            <span>|</span>
+          <Link href="/privacy" className="hover:text-accent transition">
+            {t.privacy}
+          </Link>
 
-            <Link href="/terms" className="hover:text-accent transition">
-              {t.terms}
-            </Link>
+          <span className="hidden sm:inline">|</span>
 
-            <span>|</span>
+          <Link href="/terms" className="hover:text-accent transition">
+            {t.terms}
+          </Link>
 
-            <Link
-              href="/accessibility"
-              className="hover:text-accent transition"
-            >
-              {t.accessibility}
-            </Link>
-          </div>
+          <span className="hidden sm:inline">|</span>
+
+          <Link href="/accessibility" className="hover:text-accent transition">
+            {t.accessibility}
+          </Link>
         </div>
       </div>
     </footer>

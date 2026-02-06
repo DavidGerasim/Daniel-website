@@ -11,6 +11,8 @@ import dashboard from "./dashboard";
 import forgotPassword from "./forgotPassword";
 import resetPassword from "./resetPassword";
 import footer from "./footer";
+import accessibility from "./accessibility";
+import privacy from "./privacy";
 
 const he = {
   nav,
@@ -25,6 +27,8 @@ const he = {
   forgotPassword,
   resetPassword,
   footer,
+  accessibility,
+  privacy,
 };
 
 export default he;

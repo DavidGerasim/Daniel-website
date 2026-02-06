@@ -1,4 +1,6 @@
 // frontend/utils/authApi.jsx
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const signupUser = async ({
   firstname,
   lastname,
@@ -6,7 +8,7 @@ export const signupUser = async ({
   password,
   phone,
 }) => {
-  const res = await fetch("http://localhost:5000/api/signup", {
+  const res = await fetch(`${API_URL}/api/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ firstname, lastname, email, password, phone }),
@@ -18,7 +20,7 @@ export const signupUser = async ({
 };
 
 export const loginUser = async ({ email, password }) => {
-  const res = await fetch("http://localhost:5000/api/login", {
+  const res = await fetch(`${API_URL}/api/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -31,7 +33,7 @@ export const loginUser = async ({ email, password }) => {
 
 // 🔐 Forgot Password
 export const forgotPassword = async (email) => {
-  const res = await fetch("http://localhost:5000/api/forgot-password", {
+  const res = await fetch(`${API_URL}/api/forgot-password`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),
@@ -44,7 +46,7 @@ export const forgotPassword = async (email) => {
 
 // 🔐 Reset Password
 export const resetPassword = async ({ token, password }) => {
-  const res = await fetch("http://localhost:5000/api/reset-password", {
+  const res = await fetch(`${API_URL}/api/reset-password`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token, password }),

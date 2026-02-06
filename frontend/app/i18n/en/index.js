@@ -10,6 +10,7 @@ import signup from "./signup";
 import dashboard from "./dashboard";
 import forgotPassword from "./forgotPassword";
 import resetPassword from "./resetPassword";
+import footer from "./footer";
 
 export default {
   nav,
@@ -23,4 +24,5 @@ export default {
   dashboard,
   forgotPassword,
   resetPassword,
+  footer,
 };

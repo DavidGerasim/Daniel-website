@@ -8,6 +8,7 @@ import MainNav from "@/components/MainNav";
 import Gradient from "@/components/Gradient";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Create Next App",
@@ -17,22 +18,30 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased overflow-hidden relative">
+      <body className="antialiased relative overflow-x-hidden">
         <div suppressHydrationWarning>
           <I18nProvider>
             <FontWrapper>
               <PageTransition>
                 <Gradient />
-                <div className="flex">
+
+                <div className="flex min-h-screen">
                   {/* main nav */}
                   <div className="hidden 2xl:flex w-[285px] h-screen bg-secondary">
                     <MainNav />
                   </div>
-                  <div className="w-full max-w-[1130px] px-[15px] mx-auto h-screen flex flex-col">
-                    <Header />
 
-                    {/* scrollable page content */}
-                    <div className="flex-1 overflow-hidden">{children}</div>
+                  <div className="flex-1 flex flex-col">
+                    <div className="w-full max-w-[1130px] px-[15px] mx-auto flex flex-col flex-1">
+                      <Header />
+
+                      {/* פה גלילה אנכית בלבד */}
+                      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+                        {children}
+                      </div>
+                    </div>
+
+                    <Footer />
                   </div>
                 </div>
               </PageTransition>

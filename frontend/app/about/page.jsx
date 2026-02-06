@@ -20,10 +20,10 @@ const About = () => {
         opacity: 1,
         transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
       }}
-      className="h-screen flex flex-col md:flex-col justify-center"
+      className="min-h-screen flex flex-col justify-center"
     >
       <div className="container mx-auto px-0">
-        <div className="flex flex-col xl:flex-row items-center gap-24 w-full h-[680px]">
+        <div className="flex flex-col xl:flex-row items-start gap-24 w-full">
           {/* Left side */}
           <div className="w-full">
             <div>
@@ -31,26 +31,28 @@ const About = () => {
                 <div className="w-2 h-2 bg-accent rounded-full"></div>
                 <p>{t.about.title}</p>
               </div>
+
               <h2 className="h2 mb-6">
                 <span className="text-accent">{t.about.name.first}</span>{" "}
                 {t.about.name.last}
               </h2>
+
               <p className="max-w-[540px] mb-12">{t.about.description}</p>
+
               <div className="flex flex-col items-start gap-16">
                 <Stats stats={t.about.stats} />
                 <Testimonial testimonials={t.about.testimonials} />
               </div>
             </div>
           </div>
-          {/* Right side - Scrool Area */}
-          <div className="w-full flex flex-col h-auto xl:h-[680px]">
-            {/* Title stays outside the ScrollArea */}
+
+          {/* Right side - Scroll Area */}
+          <div className="w-full flex flex-col">
             <h2 className="h2 mb-8">
               {t.about.journeyTitle.normal}{" "}
               <span className="text-accent">{t.about.journeyTitle.accent}</span>
             </h2>
 
-            {/* ScrollArea only wraps the timeline */}
             <ScrollArea className="w-full h-[500px] xl:h-[580px]">
               <Journey journey={t.about.journey} />
             </ScrollArea>

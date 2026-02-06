@@ -25,7 +25,7 @@ const Home = () => {
         transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
       }}
     >
-      <div className="h-screen flex items-center">
+      <div className="min-h-screen flex items-center overflow-hidden">
         {/* pattern */}
         <Pattern />
         <div className="flex flex-col xl:flex-row items-center justify-between w-full">
@@ -67,7 +67,7 @@ const Home = () => {
             {/* avartar img*/}
             <Image
               src={avatarImg}
-              alt=""
+              alt="Portrait of Daniel Salem, Osteopath"
               width={440}
               height={600}
               quality={100}

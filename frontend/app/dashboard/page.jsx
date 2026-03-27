@@ -141,7 +141,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-primary flex flex-col text-white p-8 gap-8">
+    <div className="min-h-screen w-full bg-primary flex flex-col text-white px-2 sm:px-4 md:px-8 lg:px-16 py-4 md:py-8 gap-6 sm:gap-8">
       <DeleteBookingModal
         booking={bookingToDelete}
         onCancel={() => setBookingToDelete(null)}
@@ -151,8 +151,8 @@ export default function Dashboard() {
       <BookingSuccessModal show={showSuccess} />
 
       {/* TOP – Treatment History */}
-      <div className="bg-gray-900/80 rounded-2xl p-6">
-        <h2 className="text-xl font-bold mb-4">{t.dashboard.history.title}</h2>
+      <div className="bg-gray-900/80 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 w-full max-w-5xl mx-auto">
+        <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">{t.dashboard.history.title}</h2>
         {error && <p className="text-red-400">{error}</p>}
 
         {treatmentHistory.length === 0 ? (
@@ -166,11 +166,11 @@ export default function Dashboard() {
       </div>
 
       {/* BOTTOM – booking form */}
-      <div className="flex-1 bg-gray-900/80 rounded-2xl p-6 pb-24 flex flex-col gap-6 overflow-y-auto">
-        <h2 className="text-2xl font-bold">{t.dashboard.booking.title}</h2>
-        <form className="flex flex-col gap-6" onSubmit={handleBooking}>
+      <div className="flex-1 max-w-5xl mx-auto w-full bg-gray-900/80 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 pb-16 md:pb-24 flex flex-col gap-4 sm:gap-6 overflow-y-auto">
+        <h2 className="text-xl sm:text-2xl font-bold">{t.dashboard.booking.title}</h2>
+        <form className="flex flex-col gap-4 sm:gap-6" onSubmit={handleBooking}>
           {/* service selector */}
-          <div className="flex gap-4 overflow-x-auto pb-2">
+          <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-600">
             {services.map((s) => {
               const isSelected = service === s.id;
 
@@ -185,22 +185,21 @@ export default function Dashboard() {
                   }}
                   className={`
                   relative z-10
-                  w-full
-                  h-18
-                  p-3
-                  rounded-xl
+                  min-w-[60px] min-h-[70px] sm:min-w-[90px] sm:min-h-[80px]
+                  w-full max-w-[120px] sm:max-w-[160px]
+                  px-1 sm:px-3 py-2 sm:py-3
+                  rounded-lg sm:rounded-xl
                   border
                   transition
-                  flex flex-col items-center justify-center text-center gap-2
-                  ${
-                    isSelected
-                      ? "bg-accent text-black border-accent"
-                      : "bg-gray-800 border-gray-600 hover:border-accent/60"
+                  flex flex-col items-center justify-center text-center gap-1 sm:gap-2
+                  ${isSelected
+                    ? "bg-accent text-black border-accent"
+                    : "bg-gray-800 border-gray-600 hover:border-accent/60"
                   }
                 `}
                 >
-                  <img src={s.icon} alt={s.title} className="w-8 h-8" />
-                  <span className="font-semibold text-sm">{s.title}</span>
+                  <img src={s.icon} alt={s.title} className="w-6 h-6 sm:w-8 sm:h-8" />
+                  <span className="font-semibold text-xs sm:text-sm">{s.title}</span>
                 </button>
               );
             })}
@@ -208,11 +207,11 @@ export default function Dashboard() {
 
           {/* calendar + time slots */}
           <div
-            className={`flex flex-col lg:flex-row gap-10 ${
+            className={`flex flex-col gap-6 sm:gap-10 lg:flex-row ${
               !service ? "opacity-50 pointer-events-none" : ""
             }`}
           >
-            <div className="scale-110 origin-top-left">
+            <div className="flex-shrink-0 w-full sm:w-auto scale-100 sm:scale-105 md:scale-110 origin-top-left">
               <BookingCalendar
                 date={date}
                 setDate={(d) => {
@@ -225,7 +224,7 @@ export default function Dashboard() {
             </div>
 
             {date && (
-              <div className="w-full lg:max-w-[320px]">
+              <div className="w-full max-w-full lg:max-w-[320px]">
                 <TimeSlots
                   date={date}
                   selectedTime={time}
@@ -239,7 +238,7 @@ export default function Dashboard() {
           <button
             type="submit"
             disabled={!service || !date || !time}
-            className={`btn btn-accent w-full ${
+            className={`btn btn-accent w-full text-sm sm:text-base ${
               !service || !date || !time ? "opacity-40 cursor-not-allowed" : ""
             }`}
           >

@@ -1,4 +1,3 @@
-// frontend/app/services/page.jsx
 "use client";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,7 +11,21 @@ import { dictionaries } from "../i18n";
 
 import Image from "next/image";
 import { MdOutlineArrowOutward } from "react-icons/md";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
+// Custom responsive container to avoid edge padding on small screens,
+// but enable a centered, consistent look from md and up.
+function ResponsiveContainer({ children, className = "" }) {
+  return (
+    <div
+      className={
+        // px-4 on small, auto max-w to center, more px on md+ for breathing room
+        "w-full max-w-7xl mx-auto px-0 sm:px-4 md:px-8 " + className
+      }
+    >
+      {children}
+    </div>
+  );
+}
 
 const Services = () => {
   const { lang } = useI18n();
@@ -24,68 +37,94 @@ const Services = () => {
     <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: 0.4, duration: 0.4 } }}
-      className="h-screen flex items-center"
+      className="w-full flex flex-col items-center" // Section centered
     >
-      <div className="container mx-auto w-full flex flex-col gap-16">
-        {/* header */}
-        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8">
-          <h2 className="h2 max-w-[480px]">
+      {/* Header */}
+      <ResponsiveContainer>
+        <div className="flex flex-col items-center justify-center gap-6 pt-10 pb-8 text-center">
+          <h2 className="h2 max-w-full sm:max-w-[520px] break-words">
             {t.services.title.normal}{" "}
             <span className="text-accent">{t.services.title.accent}</span>{" "}
             {t.services.title.rest}
           </h2>
         </div>
+      </ResponsiveContainer>
 
-        {/* slider */}
+      {/* Slider Wrapper */}
+      <ResponsiveContainer className="pb-16">
         <Swiper
           key={lang}
-          spaceBetween={30}
+          spaceBetween={16}
           slidesPerView={1}
           breakpoints={{
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 32,
+            },
           }}
           modules={[Pagination]}
-          pagination={{ clickable: true, dynamicBullets: true }}
-          className="h-[320px]"
+          pagination={{
+            clickable: true,
+            dynamicBullets: false,
+          }}
+          className="w-full max-w-full pb-14" // pb space for bullets
         >
           {services.map((service) => (
-            <SwiperSlide key={service.id}>
-              <div className="bg-secondary/90 w-full h-[284px] rounded-[20px] px-[30px] py-[40px] flex flex-col justify-between">
+            <SwiperSlide key={service.id} className="flex justify-center">
+              <div
+                className={`
+                  bg-secondary/90 rounded-xl flex flex-col shadow-md
+                  px-5 py-7
+                  min-h-[220px]
+                  w-full max-w-xs
+                  mx-auto
+                  items-stretch
+                  md:max-w-sm
+                  lg:max-w-md
+                  transition-all
+                `}
+              >
                 {/* Icon + arrow */}
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-5">
                   <Image
                     src={service.icon}
-                    width={48}
-                    height={48}
+                    width={40}
+                    height={40}
                     alt={service.title}
                   />
                   <div
-                    onClick={() => {
-                      router.push(`/login?service=${service.id}`);
-                    }}
-                    className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-2xl hover:rotate-45 transition-all cursor-pointer"
+                    onClick={() => router.push(`/login?service=${service.id}`)}
+                    className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-xl hover:rotate-45 transition-all cursor-pointer"
                   >
                     <MdOutlineArrowOutward />
                   </div>
                 </div>
-
-                {/* Title */}
-                <h5 className="text-[22px] font-medium mb-2">
+                <h5
+                  className="text-lg font-medium mb-2 break-words"
+                  style={{
+                    // Prevents title cut-off for long translations
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                  }}
+                  title={service.title}
+                >
                   {service.title}
                 </h5>
-
-                {/* Description */}
-                <ScrollArea className="h-[90px] pr-2 group">
-                  <p className="text-sm text-white/70 leading-relaxed group-hover:overflow-y-auto">
+                <div className="overflow-y-auto max-h-36">
+                  <p className="text-sm text-white/70 leading-relaxed break-words">
                     {service.description}
                   </p>
-                </ScrollArea>
+                </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+        {/* Swiper Pagination moves itself with 'pb-14' – no overlap */}
+      </ResponsiveContainer>
     </motion.section>
   );
 };

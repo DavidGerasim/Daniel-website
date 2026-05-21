@@ -36,11 +36,17 @@ app.use("/api/stats", statsRoutes);
 app.use("/api/forgot-password", forgotPassword);
 app.use("/api/reset-password", resetPassword);
 
-// Connect to MongoDB
+// Connect to MongoDB + Start server
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  .then(() => {
+    console.log("MongoDB connected");
+
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:");
+    console.error(err);
+  });

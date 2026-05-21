@@ -12,7 +12,7 @@ const MainNav = () => {
 
         {/* center nav links */}
         <div className="absolute top-1/2 -translate-y-1/2">
-          <Navlinks containerStyles="flex flex-col gap-16" />
+          <Navlinks containerStyles="flex flex-col items-center gap-16 text-center" />
         </div>
 
         {/* language selector */}

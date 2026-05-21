@@ -5,4 +5,5 @@ export default {
   services: "שירותים",
   gallery: "גלריה",
   contact: "צור קשר",
+  bookNow: "הזמן עכשיו",
 };

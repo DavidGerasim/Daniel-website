@@ -5,4 +5,5 @@ export default {
   services: "Services",
   gallery: "Gallery",
   contact: "Contact",
+  bookNow: "Book Now",
 };

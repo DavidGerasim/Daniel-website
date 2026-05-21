@@ -22,6 +22,10 @@
   --font-primary: "Sometype Mono";
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   @apply font-primary bg-primary text-white leading-relaxed;
 }
@@ -75,6 +79,7 @@ body {
 /* swiper css */
 .swiper {
   margin: 0 !important;
+  overflow: hidden !important;
 }
 
 /* swiper bullets */

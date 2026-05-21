@@ -1,31 +1,14 @@
+// frontend/app/services/page.jsx
 "use client";
-import { motion } from "framer-motion";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import { useRouter } from "next/navigation";
-import "swiper/css";
-import "swiper/css/pagination";
 
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useI18n } from "../i18nProvider";
 import { dictionaries } from "../i18n";
 
 import Image from "next/image";
 import { MdOutlineArrowOutward } from "react-icons/md";
-
-// Custom responsive container to avoid edge padding on small screens,
-// but enable a centered, consistent look from md and up.
-function ResponsiveContainer({ children, className = "" }) {
-  return (
-    <div
-      className={
-        // px-4 on small, auto max-w to center, more px on md+ for breathing room
-        "w-full max-w-7xl mx-auto px-0 sm:px-4 md:px-8 " + className
-      }
-    >
-      {children}
-    </div>
-  );
-}
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Services = () => {
   const { lang } = useI18n();
@@ -36,95 +19,107 @@ const Services = () => {
   return (
     <motion.section
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.4, duration: 0.4 } }}
-      className="w-full flex flex-col items-center" // Section centered
+      animate={{
+        opacity: 1,
+        transition: { delay: 0.3, duration: 0.4 },
+      }}
+      className="min-h-screen py-10 md:py-16"
     >
-      {/* Header */}
-      <ResponsiveContainer>
-        <div className="flex flex-col items-center justify-center gap-6 pt-10 pb-8 text-center">
-          <h2 className="h2 max-w-full sm:max-w-[520px] break-words">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="mb-10 md:mb-14">
+          <h2 className="h2 max-w-[700px] leading-tight">
             {t.services.title.normal}{" "}
             <span className="text-accent">{t.services.title.accent}</span>{" "}
             {t.services.title.rest}
           </h2>
         </div>
-      </ResponsiveContainer>
 
-      {/* Slider Wrapper */}
-      <ResponsiveContainer className="pb-16">
-        <Swiper
-          key={lang}
-          spaceBetween={16}
-          slidesPerView={1}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 24,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 32,
-            },
-          }}
-          modules={[Pagination]}
-          pagination={{
-            clickable: true,
-            dynamicBullets: false,
-          }}
-          className="w-full max-w-full pb-14" // pb space for bullets
-        >
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {services.map((service) => (
-            <SwiperSlide key={service.id} className="flex justify-center">
-              <div
-                className={`
-                  bg-secondary/90 rounded-xl flex flex-col shadow-md
-                  px-5 py-7
-                  min-h-[220px]
-                  w-full max-w-xs
-                  mx-auto
-                  items-stretch
-                  md:max-w-sm
-                  lg:max-w-md
-                  transition-all
-                `}
-              >
-                {/* Icon + arrow */}
-                <div className="flex items-center justify-between mb-5">
-                  <Image
-                    src={service.icon}
-                    width={40}
-                    height={40}
-                    alt={service.title}
-                  />
-                  <div
-                    onClick={() => router.push(`/login?service=${service.id}`)}
-                    className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-xl hover:rotate-45 transition-all cursor-pointer"
-                  >
-                    <MdOutlineArrowOutward />
-                  </div>
-                </div>
-                <h5
-                  className="text-lg font-medium mb-2 break-words"
-                  style={{
-                    // Prevents title cut-off for long translations
-                    wordBreak: "break-word",
-                    overflowWrap: "break-word",
+            <div
+              key={service.id}
+              className="
+                bg-secondary/90
+                rounded-[24px]
+                p-5 md:p-7
+                border border-white/10
+                backdrop-blur-md
+                shadow-xl
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:border-accent/40
+                flex flex-col
+                min-h-[320px]
+                overflow-hidden
+              "
+            >
+              {/* Top */}
+              <div className="flex items-center justify-between mb-6 gap-4">
+                <Image
+                  src={service.icon}
+                  width={48}
+                  height={48}
+                  alt={service.title}
+                  className="shrink-0"
+                />
+
+                <button
+                  onClick={() => {
+                    router.push(`/login?service=${service.id}`);
                   }}
-                  title={service.title}
+                  className="
+                    w-11 h-11
+                    min-w-[44px]
+                    rounded-full
+                    bg-accent
+                    flex items-center justify-center
+                    text-black
+                    text-xl
+                    hover:rotate-45
+                    transition-all
+                  "
                 >
-                  {service.title}
-                </h5>
-                <div className="overflow-y-auto max-h-36">
-                  <p className="text-sm text-white/70 leading-relaxed break-words">
-                    {service.description}
-                  </p>
-                </div>
+                  <MdOutlineArrowOutward />
+                </button>
               </div>
-            </SwiperSlide>
+
+              {/* Title */}
+              <h3
+                className="
+                  text-xl
+                  md:text-2xl
+                  font-semibold
+                  mb-4
+                  leading-snug
+                  break-words
+                  whitespace-normal
+                "
+              >
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <ScrollArea className="flex-1 pr-2">
+                <p
+                  className="
+                    text-sm
+                    md:text-base
+                    text-white/70
+                    leading-relaxed
+                    break-words
+                    whitespace-normal
+                  "
+                >
+                  {service.description}
+                </p>
+              </ScrollArea>
+            </div>
           ))}
-        </Swiper>
-        {/* Swiper Pagination moves itself with 'pb-14' – no overlap */}
-      </ResponsiveContainer>
+        </div>
+      </div>
     </motion.section>
   );
 };

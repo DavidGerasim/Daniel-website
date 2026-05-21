@@ -5,4 +5,5 @@ export default {
   services: "Услуги",
   gallery: "Галерея",
   contact: "Контакты",
+  bookNow: "Забронировать сейчас",
 };

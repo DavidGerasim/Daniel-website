@@ -46,9 +46,13 @@ export default function Dashboard() {
 
   useEffect(() => {
     const serviceFromUrl = searchParams.get("service");
+
     if (serviceFromUrl) {
       const svc = services.find((s) => s.id === serviceFromUrl);
-      if (svc) setService(svc.title);
+
+      if (svc) {
+        setService(svc.id);
+      }
     }
   }, [searchParams, services]);
 
@@ -152,7 +156,9 @@ export default function Dashboard() {
 
       {/* TOP – Treatment History */}
       <div className="bg-gray-900/80 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 w-full max-w-5xl mx-auto">
-        <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">{t.dashboard.history.title}</h2>
+        <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">
+          {t.dashboard.history.title}
+        </h2>
         {error && <p className="text-red-400">{error}</p>}
 
         {treatmentHistory.length === 0 ? (
@@ -167,7 +173,9 @@ export default function Dashboard() {
 
       {/* BOTTOM – booking form */}
       <div className="flex-1 max-w-5xl mx-auto w-full bg-gray-900/80 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 pb-16 md:pb-24 flex flex-col gap-4 sm:gap-6 overflow-y-auto">
-        <h2 className="text-xl sm:text-2xl font-bold">{t.dashboard.booking.title}</h2>
+        <h2 className="text-xl sm:text-2xl font-bold">
+          {t.dashboard.booking.title}
+        </h2>
         <form className="flex flex-col gap-4 sm:gap-6" onSubmit={handleBooking}>
           {/* service selector */}
           <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-600">
@@ -192,14 +200,21 @@ export default function Dashboard() {
                   border
                   transition
                   flex flex-col items-center justify-center text-center gap-1 sm:gap-2
-                  ${isSelected
-                    ? "bg-accent text-black border-accent"
-                    : "bg-gray-800 border-gray-600 hover:border-accent/60"
+                  ${
+                    isSelected
+                      ? "bg-accent text-black border-accent"
+                      : "bg-gray-800 border-gray-600 hover:border-accent/60"
                   }
                 `}
                 >
-                  <img src={s.icon} alt={s.title} className="w-6 h-6 sm:w-8 sm:h-8" />
-                  <span className="font-semibold text-xs sm:text-sm">{s.title}</span>
+                  <img
+                    src={s.icon}
+                    alt={s.title}
+                    className="w-6 h-6 sm:w-8 sm:h-8"
+                  />
+                  <span className="font-semibold text-xs sm:text-sm">
+                    {s.title}
+                  </span>
                 </button>
               );
             })}

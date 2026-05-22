@@ -19,7 +19,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ["https://daniel-website-inky.vercel.app"],
+    origin: ["http://localhost:3000", "https://daniel-website-inky.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   }),

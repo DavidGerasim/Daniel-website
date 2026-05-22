@@ -73,7 +73,17 @@ const SignUp = () => {
       return;
     }
 
+    console.log("Submitting signup...");
+    console.log({
+      firstname,
+      lastname,
+      email,
+      password,
+      phone,
+    });
+
     try {
+      console.log("Calling signupUser...");
       const data = await signupUser({
         firstname,
         lastname,
@@ -81,6 +91,8 @@ const SignUp = () => {
         password,
         phone,
       });
+      console.log("Signup success:", data);
+
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
@@ -90,6 +102,7 @@ const SignUp = () => {
           : "/dashboard",
       );
     } catch (err) {
+      console.error("Signup error:", err);
       setServerError(err.message || "Server error. Please try again later.");
     }
   };

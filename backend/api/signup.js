@@ -1,3 +1,4 @@
+// backend/api/signup.js
 import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
@@ -17,6 +18,8 @@ const isValidPhone = (phone) => {
 };
 
 router.post("/", async (req, res) => {
+  console.log("Signup request received");
+  console.log(req.body);
   try {
     let { firstname, lastname, email, password, phone } = req.body;
     if (!firstname || !lastname || !email || !password || !phone) {
